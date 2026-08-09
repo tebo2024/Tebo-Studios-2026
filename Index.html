@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base target="_top">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>Tebo Studio's</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bk:#0e0d0b;--g:#c49a45;--gl:#e8c97a;--gd:#c49a4512;--gm:#c49a4530;--sf:#f8f6f2;--cd:#fff;--br:#e6e2d8;--bs:#cdc8b8;--tx:#1a1814;--t2:#58544a;--t3:#9a9080;--gn:#1a7a52;--gnb:#f0faf5;--gnbd:#b7e0cc;--rd:#c0392b;--rdb:#fff5f5;--rdbd:#f5b8b0;--am:#b45309;--amb:#fffbeb;--wa:#25D366;--pr:#6b21a8;--prd:#6b21a810}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--sf);color:var(--tx);font-size:14px;-webkit-tap-highlight-color:transparent}
+.hdr{background:var(--bk);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:10px}
+.lr{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--g);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lr span{font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--g)}
+.ln{font-family:'Cormorant Garamond',serif;font-size:14px;color:#fff;letter-spacing:.08em}
+.ls{font-size:8px;color:var(--g);letter-spacing:.18em;text-transform:uppercase}
+.hb{font-family:'DM Mono',monospace;font-size:10px;color:var(--t3);background:#fff1;padding:3px 8px;border-radius:5px;border:1px solid #fff2}
+.type-bar{display:flex;background:var(--cd);border-bottom:1px solid var(--br);padding:6px 16px;gap:6px}
+.type-btn{flex:1;padding:10px;border:1.5px solid var(--br);border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;background:#fff;color:var(--t2);font-family:'DM Sans',sans-serif;text-align:center;transition:all .15s}
+.type-btn.ev-on{border-color:var(--g);background:var(--gd);color:var(--bk)}
+.type-btn.st-on{border-color:var(--pr);background:var(--prd);color:var(--pr)}
+.tabs{display:flex;background:var(--cd);border-bottom:1px solid var(--br);padding:0 16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab{padding:9px 13px;font-size:11px;font-weight:600;color:var(--t3);border:none;background:transparent;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;border-bottom:2.5px solid transparent;transition:all .15s}
+.tab.on{color:var(--g);border-bottom-color:var(--g)}
+.main{padding:14px 16px;max-width:900px;margin:0 auto}
+.fc{background:var(--cd);border:1px solid var(--br);border-radius:12px;overflow:hidden;box-shadow:0 2px 10px #0e0d0b06;margin-bottom:14px}
+.fc-hdr{padding:14px 16px;border-bottom:1px solid var(--br);background:var(--sf)}
+.fc-hdr h3{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500}
+.fc-body{padding:14px 16px}
+.f{margin-bottom:10px}
+.f label{display:block;font-size:10px;font-weight:700;color:var(--t2);letter-spacing:.07em;text-transform:uppercase;margin-bottom:3px}
+.f input,.f select,.f textarea{width:100%;border:1px solid var(--bs);border-radius:7px;padding:8px 10px;font-size:13px;color:var(--tx);background:#fff;font-family:'DM Sans',sans-serif}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 3px var(--gd)}
+.f textarea{resize:none;line-height:1.5}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.f3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.id-box{background:var(--gd);border:1px dashed var(--gm);border-radius:8px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.id-val{font-family:'DM Mono',monospace;font-size:13px;color:var(--bk);font-weight:600}
+.id-err{background:var(--rdb);border:1px solid var(--rdbd);border-radius:6px;padding:6px 10px;font-size:11px;color:var(--rd);font-weight:600;margin-top:4px}
+.id-toggle{display:flex;gap:5px;margin-bottom:8px}
+.id-toggle button{flex:1;padding:7px;border:1.5px solid var(--bs);border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;background:#fff;color:var(--t2);font-family:'DM Sans',sans-serif}
+.id-toggle button.on{border-color:var(--g);background:var(--gd);color:var(--bk)}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
+.chip{display:flex;align-items:center;gap:4px;padding:5px 9px;border:1px solid var(--bs);border-radius:6px;cursor:pointer;background:#fff;font-size:12px;font-weight:500;transition:all .12s}
+.chip.on{border-color:var(--g);background:var(--gd)}
+.chip input{accent-color:var(--g);width:11px;height:11px}
+.se-block{border:1px solid var(--br);border-radius:8px;padding:12px;margin-bottom:8px;background:var(--sf);position:relative}
+.se-rm{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;border:1px solid #fecaca;background:#fff;color:var(--rd);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.pkg-card{border:1px solid var(--br);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .15s;background:#fff;margin-bottom:6px}
+.pkg-card:hover{border-color:var(--g)}
+.pkg-card.sel{border-color:var(--g);background:var(--gd);box-shadow:0 0 0 2px var(--gm)}
+.pkg-name{font-size:13px;font-weight:600;color:var(--tx)}
+.pkg-price{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--g);font-weight:500}
+.pkg-reqs{font-size:11px;color:var(--t2);margin-top:2px}
+.qbox{background:var(--amb);border:1px solid #fde68a;border-radius:8px;padding:12px;margin-bottom:12px}
+.qbox .ql{font-size:10px;font-weight:700;color:var(--am);letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px}
+.qconf{background:var(--gnb);border:1px solid var(--gnbd);border-radius:7px;padding:8px 12px;font-size:12px;font-weight:600;color:var(--gn);margin-top:6px}
+.ablock{border:1px solid var(--br);border-radius:8px;padding:10px;margin-bottom:8px;background:var(--sf)}
+.albl{font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px}
+.meths{display:flex;gap:4px;margin-top:5px}
+.meth{padding:4px 10px;border:1px solid var(--bs);border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;background:#fff;color:var(--t2);font-family:'DM Sans',sans-serif}
+.meth.on{background:var(--g);border-color:var(--g);color:#fff}
+.trow{display:flex;gap:6px;margin-bottom:8px}
+.tog{flex:1;padding:8px;border:1px solid var(--bs);border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;background:#fff;color:var(--t2);font-family:'DM Sans',sans-serif;text-align:center;transition:all .15s}
+.tog.g{border-color:var(--gnbd);background:var(--gnb);color:var(--gn)}
+.tog.r{border-color:var(--rdbd);background:var(--rdb);color:var(--rd)}
+.team-row{display:grid;grid-template-columns:1fr 1fr 80px 80px 28px;gap:5px;align-items:center;padding:7px;border:1px solid var(--br);border-radius:7px;background:var(--sf);margin-bottom:5px}
+.team-row select,.team-row input{border:1px solid var(--bs);border-radius:5px;padding:5px 7px;font-size:12px;font-family:'DM Sans',sans-serif;width:100%}
+.rm{width:22px;height:22px;border-radius:50%;border:1px solid #fecaca;background:#fff;color:var(--rd);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.add-btn{padding:6px 12px;border:1px solid var(--g);border-radius:6px;background:var(--gd);color:var(--bk);font-size:11px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif}
+.dl{border:1px solid var(--bs);border-radius:8px;overflow:hidden;margin-bottom:8px}
+.di{display:flex;align-items:center;gap:6px;padding:6px 10px;border-bottom:1px solid var(--br)}
+.di:last-child{border-bottom:none}
+.di-n{font-family:'DM Mono',monospace;font-size:10px;color:var(--t3);min-width:14px}
+.di input[type=text]{flex:1;border:none;font-size:12px;color:var(--tx);font-family:'DM Sans',sans-serif;background:transparent;outline:none}
+.di-chk{width:13px;height:13px;accent-color:var(--gn);cursor:pointer}
+.btn-row{display:flex;gap:7px;margin-top:14px}
+.btn-p{flex:1;padding:10px;background:var(--bk);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-s{flex:1;padding:10px;border:1px solid var(--bs);border-radius:7px;background:#fff;color:var(--t2);font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-save{width:100%;padding:12px;background:var(--g);color:var(--bk);border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Cormorant Garamond',serif;letter-spacing:.05em;margin-top:10px}
+/* DASHBOARD */
+.dash-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.dcard{background:var(--cd);border:1px solid var(--br);border-radius:9px;padding:10px 12px;box-shadow:0 1px 6px #0e0d0b06}
+.dv{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;line-height:1}
+.dv.gold{color:var(--g)}.dv.red{color:var(--rd)}
+.dl2{font-size:10px;color:var(--t3);margin-top:2px}
+.alert-list{margin-bottom:14px}
+.alert-item{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--cd);border:1px solid var(--br);border-radius:8px;margin-bottom:5px}
+.alert-item.warn{border-color:#fde68a;background:var(--amb)}
+.alert-item.danger{border-color:var(--rdbd);background:var(--rdb)}
+.alert-name{font-size:13px;font-weight:600}.alert-meta{font-size:11px;color:var(--t3)}
+.alert-amt{font-size:12px;font-weight:700;color:var(--rd)}
+/* SEARCH BAR */
+.sbar{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.sbar input,.sbar select{flex:1;min-width:100px;border:1px solid var(--bs);border-radius:7px;padding:7px 10px;font-size:12px;background:#fff;color:var(--tx);font-family:'DM Sans',sans-serif}
+.sbar input:focus,.sbar select:focus{outline:none;border-color:var(--g)}
+.ibtn{padding:6px 12px;border:1px solid var(--bs);border-radius:7px;background:#fff;color:var(--t2);font-size:11px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.ibtn:hover{border-color:var(--g);color:var(--g)}
+/* ORDER CARD */
+.ol{display:flex;flex-direction:column;gap:10px}
+.oc{background:var(--cd);border:1px solid var(--br);border-radius:10px;overflow:hidden;box-shadow:0 1px 6px #0e0d0b06}
+.oct{padding:10px 14px;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;border-bottom:1px solid var(--br)}
+.oc-id{font-family:'DM Mono',monospace;font-size:10px;color:var(--t3);background:var(--sf);padding:2px 6px;border-radius:4px;border:1px solid var(--br);display:inline-block;margin-bottom:2px}
+.oc-name{font-size:14px;font-weight:600}
+.oc-meta{font-size:11px;color:var(--t3);margin-top:1px}
+.stb{padding:3px 8px;border-radius:99px;font-size:10px;font-weight:700;white-space:nowrap}
+.s-new{background:#f0f4ff;color:#3b5bdb}.s-conf{background:var(--amb);color:var(--am)}
+.s-prog{background:var(--gnb);color:var(--gn)}.s-del{background:#ede9fe;color:var(--pr)}.s-done{background:#e8f5e9;color:#2e7d32}
+.pills{display:flex;gap:4px;padding:8px 14px;border-bottom:1px solid var(--br);flex-wrap:wrap}
+.ip{display:flex;align-items:center;gap:3px;padding:2px 7px;border-radius:99px;font-size:9px;font-weight:700;border:1px solid transparent}
+.ip.r{background:var(--rdb);border-color:var(--rdbd);color:var(--rd)}
+.ip.g{background:var(--gnb);border-color:var(--gnbd);color:var(--gn)}
+.ip .d{width:5px;height:5px;border-radius:50%;background:currentColor}
+.ocg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding:8px 14px;border-bottom:1px solid var(--br)}
+.oil{font-size:9px;color:var(--t3);margin-bottom:1px}.oiv{font-size:11px;font-weight:500}
+.msgs{padding:8px 14px;display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--br)}
+.mb{padding:4px 8px;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.mb-g{background:#e8f5ee;color:var(--gn)}.mb-g:hover{background:var(--wa);color:#fff}
+.mb-a{background:#fef9c3;color:#854d0e}.mb-a:hover{background:#ca8a04;color:#fff}
+.mb-p{background:#ede9fe;color:var(--pr)}.mb-p:hover{background:var(--pr);color:#fff}
+.mb-r{background:#fff0f0;color:var(--rd)}.mb-r:hover{background:var(--rd);color:#fff}
+.mb-b{background:#e0f0ff;color:#1e5a9e}.mb-b:hover{background:#1e5a9e;color:#fff}
+.ocf{padding:8px 14px;display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap}
+.stsel{border:1px solid var(--bs);border-radius:6px;padding:4px 7px;font-size:11px;font-weight:600;color:var(--t2);background:#fff;font-family:'DM Sans',sans-serif;cursor:pointer}
+.dbtn{padding:4px 8px;border:1px solid #fecaca;border-radius:6px;background:#fff;color:var(--rd);font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.rp{font-size:9px;padding:3px 7px;border-radius:99px;background:var(--amb);color:var(--am);font-weight:700;border:1px solid #fde68a;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.modal-bg{position:fixed;inset:0;background:#0e0d0b80;z-index:200;display:flex;align-items:center;justify-content:center;padding:14px}
+.modal-bg.hidden{display:none}
+.modal{background:#fff;border-radius:14px;width:100%;max-width:520px;overflow:hidden;box-shadow:0 16px 48px #0e0d0b22;max-height:90vh;overflow-y:auto}
+.mhdr{padding:12px 16px;background:var(--bk);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0}
+.mt{font-family:'Cormorant Garamond',serif;font-size:15px;color:#fff}.mc{background:none;border:none;color:var(--t3);font-size:18px;cursor:pointer}
+.mbody{padding:14px 16px}
+.chtabs{display:flex;gap:4px;margin-bottom:10px}
+.ch{padding:5px 11px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--bs);background:#fff;color:var(--t2);font-family:'DM Sans',sans-serif}
+.ch.wa{background:var(--wa);border-color:var(--wa);color:#fff}
+.ch.sms{background:#3b5bdb;border-color:#3b5bdb;color:#fff}
+.ch.em{background:#e65100;border-color:#e65100;color:#fff}
+.mprev{background:var(--sf);border:1px solid var(--bs);border-radius:8px;padding:11px;font-size:12px;color:var(--tx);line-height:1.6;white-space:pre-wrap;max-height:220px;overflow-y:auto;font-family:'DM Sans',sans-serif}
+.mft{display:flex;gap:7px;margin-top:10px}
+.sbtn{flex:1;padding:10px;border-radius:7px;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif}
+.sbtn.wa{background:var(--wa);color:#fff}.sbtn.sms{background:#3b5bdb;color:#fff}.sbtn.em{background:#e65100;color:#fff}
+.cbtn{padding:10px 13px;border:1px solid var(--bs);border-radius:7px;background:#fff;color:var(--t2);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.empty{text-align:center;padding:2.5rem 1rem;color:var(--t3)}
+.empty h3{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:400;color:var(--t2);margin:8px 0 4px}
+.toast{position:fixed;bottom:16px;right:16px;background:var(--bk);color:#fff;padding:8px 14px;border-radius:8px;font-size:12px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:300;display:flex;align-items:center;gap:6px}
+.toast.show{opacity:1}
+.tdot{width:6px;height:6px;border-radius:50%;background:var(--g)}
+.day-badge{font-size:11px;color:var(--g);font-weight:600;margin-left:6px}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--bs);border-radius:2px}
+@media(max-width:640px){.dash-cards{grid-template-columns:1fr 1fr}.team-row{grid-template-columns:1fr 1fr;gap:4px}.ocg{grid-template-columns:1fr 1fr}.frow{grid-template-columns:1fr}.f3{grid-template-columns:1fr 1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="logo"><div class="lr"><span>TS</span></div><div><div class="ln">TEBO STUDIO'S</div><div class="ls">Order Management</div></div></div>
+  <div style="display:flex;align-items:center;gap:6px">
+    <input id="globalSearch" placeholder="Search ID/Name" style="width:130px;border:1px solid #fff2;border-radius:6px;padding:5px 8px;font-size:11px;background:#fff1;color:#fff;font-family:'DM Mono',monospace" onkeydown="if(event.key==='Enter')doGlobalSearch()">
+    <button onclick="doGlobalSearch()" style="padding:4px 8px;border:1px solid #fff2;border-radius:5px;background:transparent;color:var(--g);font-size:10px;cursor:pointer">Go</button>
+    <div class="hb" id="hBadge">0 orders</div>
+  </div>
+</div>
+<div class="type-bar">
+  <button class="type-btn ev-on" id="tb-ev" onclick="setMode('event')">📷 Event Order</button>
+  <button class="type-btn" id="tb-st" onclick="setMode('studio')">🏠 Studio Work</button>
+</div>
+<div class="tabs" id="mainTabs"></div>
+<div class="main" id="mainContent"></div>
+
+<!-- MESSAGE MODAL -->
+<div class="modal-bg hidden" id="msgModal">
+  <div class="modal">
+    <div class="mhdr"><div class="mt" id="msgTitle">Send</div><button class="mc" onclick="closeModal()">✕</button></div>
+    <div class="mbody">
+      <div class="chtabs">
+        <button class="ch wa" id="ch-wa" onclick="swCh('wa')">WhatsApp</button>
+        <button class="ch" id="ch-sms" onclick="swCh('sms')">SMS</button>
+        <button class="ch" id="ch-em" onclick="swCh('email')">Email</button>
+      </div>
+      <div class="mprev" id="msgBody"></div>
+      <div class="mft">
+        <button class="sbtn wa" id="sendBtn" onclick="sendMsg()">Open WhatsApp ↗</button>
+        <button class="cbtn" onclick="copyMsg()">Copy</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"><span class="tdot"></span><span id="toastTxt"></span></div>
+<script>
+
+// ═══ DATA ═══
+const IMPORTED=`[]`;
+const PACKAGES={"Birthday/Puberty/Baby Shower":{"session":"4-5 hrs in Chennai","packages":{"A":{"price":16000,"reqs":["Traditional Photo"],"dels":["150 Selective photos or 25 sheets in NT album with 4-5 types of print & Album Bag","One Complementary 12x8 frame"]},"B":{"price":28000,"reqs":["Traditional Photo","Traditional Video"],"dels":["150 Selective photos or 25 sheets in NT album with 4-5 types of print & Album Bag","Traditional HD video in pendrive with Box","One Complementary 12x10 frame"]},"C":{"price":35000,"reqs":["Traditional Photo","Candid Video"],"dels":["180 Selective photos or 30 sheets in NT album with 4-5 types of print & Compact Bag","Candid Montage in YouTube or G-Drive (3-4 mins)","One Complementary 10x15 frame"]},"D":{"price":38000,"reqs":["Traditional Photo","Traditional Video","Candid Photo"],"dels":["180 Selective photos or 30 sheets in NT album with 4-5 types of print & Compact Bag","Traditional HD video in pendrive with Box","One Complementary 12x15 frame"]},"E":{"price":42000,"reqs":["Traditional Photo","Candid Photo","Candid Video"],"dels":["180 Selective photos or 30 sheets in NT album with 4-5 types of print & Compact Bag","Candid Montage in YouTube or G-Drive (3-4 mins)","One Complementary 12x15 frame"]},"F":{"price":55000,"reqs":["Traditional Photo","Traditional Video","Candid Photo","Candid Video"],"dels":["180 Selective photos or 35 sheets in NT album with 4-5 types of print & Compact Bag","Traditional HD video in pendrive with Box","Candid Montage in YouTube or G-Drive (3-4 mins)","One Complementary 12x18 frame"]}},"addons":"Additional Photographer - 5K | Additional Candid Photographer - 10K | Additional Videographer - 10K | Additional Candid Videographer - 15K | Drone - 12K | Live Streaming - 10K | Outdoor Couple Shoot - 10K | Outdoor Couple Video Shoot - 25K"},"Engagement":{"session":"4-5 hrs in Chennai","packages":{"A":{"price":16000,"reqs":["Traditional Photo"],"dels":["150 Selective photos or 25 sheets in NT album with 4-5 types of print & Album Bag","One Complementary 12x8 frame"]},"B":{"price":32000,"reqs":["Traditional Photo","Traditional Video"],"dels":["150 Selective photos or 30 sheets in NT album with 4-5 types of print & Album Bag","Traditional HD video in pendrive with Box","One Complementary 10x15 frame"]},"C":{"price":38000,"reqs":["Traditional Photo","Candid Video"],"dels":["180 Selective photos or 30 sheets in NT album with 4-5 types of print & Compact Bag/Box","Candid Montage in YouTube or G-Drive (3-4 mins)","One Complementary 10x15 frame"]},"D":{"price":42000,"reqs":["Traditional Photo","Traditional Video","Candid Photo"],"dels":["180 Selective photos or 30 sheets in NT album with 4-5 types of print & Compact Bag/Box","Traditional HD video in pendrive with Box","One Complementary 12x15 frame"]},"E":{"price":46000,"reqs":["Traditional Photo","Candid Photo","Candid Video"],"dels":["180 Selective photos or 30 sheets in NT album with 4-5 types of print & Compact Bag/Box","Candid Montage in YouTube or G-Drive (3-4 mins)","One Complementary 12x15 frame"]},"F":{"price":52000,"reqs":["Traditional Photo","Traditional Video","Candid Video"],"dels":["180 Selective photos or 30 sheets in NT album with 4-5 types of print & Compact Bag/Box","Traditional HD video in pendrive with Box","Candid Montage in YouTube or G-Drive (3-4 mins)","One Complementary 12x15 frame"]},"G":{"price":65000,"reqs":["Traditional Photo","Traditional Video","Candid Photo","Candid Video"],"dels":["180 Selective photos or 35 sheets in NT album with 4-5 types of print & Compact Bag/Box","Traditional HD video in pendrive with Box","Candid Montage in YouTube or G-Drive (3-4 mins)","One Complementary 12x18 frame"]}},"addons":"Additional Photographer - 5K | Additional Candid Photographer - 10K | Additional Videographer - 10K | Additional Candid Videographer - 15K | Drone - 12K | Live Streaming - 10K | Outdoor Couple Shoot - 10K | Outdoor Couple Video Shoot - 25K"},"Tamil Wedding":{"session":"4-5 hrs in Chennai","packages":{"Standard":{"price":45000,"reqs":["Traditional Photo","Traditional Video","Candid Photo"],"dels":["Selective 180 pictures or 35 sheets with 4-5 types of mixed print with album bag","Edited Full HD Traditional Video in Pendrive","One Complementary 10x15 frame"]},"Platinum":{"price":65000,"reqs":["Traditional Photo","Traditional Video","Candid Photo","Candid Video"],"dels":["Selective 180 pictures or 40 sheets with 4-5 types of mixed print with album bag","Edited Traditional Video in Pendrive","Two Complementary 12x18 frames"]},"Elite":{"price":80000,"reqs":["Traditional Photo","Traditional Video","Candid Photo","Candid Video","Drone"],"dels":["Selective 200 pictures or 40 sheets with 4-5 types of mixed print with album box","Edited 4K Traditional Video in Pendrive","4K Candid Montage for wedding & reception","Compact Album (12x24) size with 20 sheets or selective 30-40 pictures","One Complementary 16x24 frame & One 12x18 frame"]}}},"Christian Wedding":{"session":"8-9 hrs in Chennai","packages":{"Standard":{"price":65000,"reqs":["Traditional Photo","Traditional Video","Candid Photo"],"dels":["Selective 180 pictures or 35 sheets with 4-5 types of mixed print with album bag","Edited Full HD Traditional Video in Pendrive","One Complementary 10x15 frame"]},"Platinum":{"price":85000,"reqs":["Traditional Photo","Traditional Video","Candid Photo","Candid Video"],"dels":["Selective 180 pictures or 40 sheets with 4-5 types of mixed print with album bag","Edited Traditional Video in Pendrive","Two Complementary 12x18 frames"]},"Elite":{"price":110000,"reqs":["Traditional Photo","Traditional Video","Candid Photo","Candid Video","Drone"],"dels":["Selective 200 pictures or 40 sheets with 4-5 types of mixed print with album box","Edited 4K Traditional Video in Pendrive","4K Candid Montage for wedding & reception","Compact Album (12x24) size with 20 sheets or selective 30-40 pictures","One Complementary 16x24 frame & One 12x18 frame"]}}},"Telugu Wedding":{"session":"Full day","packages":{"Package 1":{"price":170000,"reqs":["Traditional Photo","Traditional Video","Candid Photo"],"dels":["Three Albums (12x36 or 16x24 Size)","Each Album - 200 pics or 40 sheets with NT type with 4-5 types of Prints","Traditional HD video in pendrive","Complementary 2 frames (12x18)"]},"Package 2":{"price":220000,"reqs":["Traditional Photo","Traditional Video","Candid Photo","Candid Video"],"dels":["Three Albums (12x36 or 16x24 Size)","Each 200 pics or 40 sheets with NT type album with 4-5 types of print","Traditional video in pendrive","Cinematic Video for Reception & Wedding - Teaser & Montage","Complementary 4 frames (12x18)"]},"Elite":{"price":290000,"reqs":["Traditional Photo","Traditional Video","Candid Photo","Candid Video","Drone"],"dels":["Three Albums (12x36 or 16x24 Size)","Each 200 pics or 40 sheets with NT type album with 4-5 types of print","Traditional video (4K) Output in pendrive","Cinematic Video for Reception & Wedding - Teaser & Montage","Cinematic Video (4K) & Couple Album (12x24 Size)","WhatsApp Invitation","Four Frames (12x18)","Forever Photos stored & accessible from website"]}}}};
+const DEFAULT_STAFF=[{"name": "Sanjay", "phone": "9150737167"}, {"name": "Santhosh", "phone": "9344234256"}, {"name": "Anu", "phone": "7200297794"}, {"name": "Hema", "phone": "7305781122"}, {"name": "Yashwanth", "phone": "7092189333"}, {"name": "Selva Anna", "phone": "9941123387"}, {"name": "Eajaz Anna", "phone": "9566006030"}, {"name": "Thaniga Anna", "phone": "8072536728"}, {"name": "Kumarasen Anna", "phone": "9500083284"}, {"name": "Ramkee", "phone": "8012013540"}];
+
+const SK='tebo_v3',SKS='tebo_staff_v3';
+let orders=[],staff=[],mode='event',curStep=0,curView='form',idCtr=113,idMode='auto';
+let subEvs=[],teamM=[],vendorList=[];
+let nasOk=false,photosOk=false,smugOk=false,pixOk=false,arrivedOk=false,quotConf=false;
+let methState={a1:'',a2:''};
+let selPkgCat='',selPkgKey='';
+let mOrder=null,mTrigger='booking',mCh='wa';
+const STEPS_EV=['Client','Event & Package','Quotation','Payment','Team & Files','Delivery Notes'];
+const ML={Jan:'A',Feb:'B',Mar:'C',Apr:'D',May:'E',Jun:'F',Jul:'G',Aug:'H',Sep:'I',Oct:'J',Nov:'K',Dec:'L'};
+const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+function init(){
+  try{const s=localStorage.getItem(SK);orders=s?JSON.parse(s):null;}catch(e){orders=null;}
+  if(!orders||!Array.isArray(orders))orders=[];
+  try{const s2=localStorage.getItem(SKS);staff=s2?JSON.parse(s2):null;}catch(e){staff=null;}
+  if(!staff||!staff.length||staff.length<DEFAULT_STAFF.length){
+    staff=DEFAULT_STAFF.map(function(s){return typeof s==='string'?{name:s,phone:''}:Object.assign({},s);});
+    localStorage.setItem(SKS,JSON.stringify(staff));
+  }
+  staff=staff.map(function(s){return typeof s==='string'?{name:s,phone:''}:Object.assign({},s);});
+  var mx=112;
+  orders.forEach(function(o){var m=o.id&&o.id.match(/[ES](\d+)$/);if(m)mx=Math.max(mx,parseInt(m[1]));});
+  idCtr=mx+1;
+  renderApp();
+}
+
+function setMode(m){
+  mode=m;
+  document.getElementById('tb-ev').className='type-btn'+(m==='event'?' ev-on':'');
+  document.getElementById('tb-st').className='type-btn'+(m==='studio'?' st-on':'');
+  curStep=0;curView='form';resetFormState();
+  renderApp();
+}
+
+function resetFormState(){
+  subEvs=[];teamM=[];vendorList=[];selPkgCat='';selPkgKey='';
+  nasOk=false;photosOk=false;smugOk=false;pixOk=false;arrivedOk=false;quotConf=false;
+  methState={a1:'',a2:''};
+}
+
+function renderApp(){
+  const tabs=document.getElementById('mainTabs');
+  if(mode==='event'){
+    tabs.innerHTML=[
+      ['dashboard','📊 Dashboard'],['form','➕ New Order'],['list','📋 Orders'],
+      ['reminders','⏰ Reminders'],['staff','👥 Staff']
+    ].map(([v,l])=>`<button class="tab${curView===v?' on':''}" onclick="curView='${v}';renderApp()">${l}</button>`).join('');
+  } else {
+    tabs.innerHTML=[
+      ['dashboard','📊 Dashboard'],['form','➕ New Order'],['list','📋 Orders'],['staff','👥 Staff']
+    ].map(([v,l])=>`<button class="tab${curView===v?' on':''}" onclick="curView='${v}';renderApp()">${l}</button>`).join('');
+  }
+  const main=document.getElementById('mainContent');
+  if(curView==='dashboard') renderDashboard(main);
+  else if(curView==='form') mode==='event'?renderEventForm(main):renderStudioForm(main);
+  else if(curView==='list') renderOrderList(main);
+  else if(curView==='reminders') renderReminders(main);
+  else if(curView==='staff') renderStaffView(main);
+  updateBadge();
+}
+
+function updateBadge(){document.getElementById('hBadge').textContent=orders.length+' orders';}
+
+/* ═══ DASHBOARD ═══ */
+function renderDashboard(el){
+  const evOrders=orders.filter(o=>o.type!=='studio');
+  const stOrders=orders.filter(o=>o.type==='studio');
+  const filtered=mode==='event'?evOrders:stOrders;
+  const totalRev=filtered.reduce((s,o)=>s+parseFloat(o.total||0),0);
+  const pending=evOrders.filter(o=>{
+    const bal=parseFloat(o.balance||0);
+    const rec=parseFloat(o.received||0);
+    const tot=parseFloat(o.total||0);
+    return bal>0||(tot>0&&rec<tot*0.8);
+  });
+  const remDueCount=evOrders.filter(o=>remDue(o)).length;
+  const overdue=evOrders.filter(o=>{
+    if(o.status==='Complete')return false;
+    const se=o.subEvents&&o.subEvents[0];
+    const evd=o.evdate||se?.evdate||'';
+    if(!evd)return false;
+    const days=Math.floor((new Date()-new Date(evd))/864e5);
+    return days>60&&o.type!=='studio';
+  });
+
+  el.innerHTML=`
+    <div class="dash-cards">
+      <div class="dcard"><div class="dv">${filtered.length}</div><div class="dl2">Total Orders</div></div>
+      <div class="dcard"><div class="dv gold">\u20b9${totalRev.toLocaleString('en-IN')}</div><div class="dl2">Revenue</div></div>
+      <div class="dcard"><div class="dv red">${pending.length}</div><div class="dl2">Payments Pending</div></div>
+      <div class="dcard"><div class="dv">${remDueCount}</div><div class="dl2">Reminders Due</div></div>
+    </div>
+    ${pending.length?`<div class="fc"><div class="fc-hdr"><h3>💳 Payments Pending (${pending.length})</h3></div><div class="fc-body">
+      ${pending.slice(0,15).map(o=>{
+        const bal=parseFloat(o.balance||0);
+        const rec=parseFloat(o.received||0);
+        const tot=parseFloat(o.total||0);
+        const pct=tot>0?Math.round(rec/tot*100):0;
+        const isDanger=pct<80;
+        return `<div class="alert-item${isDanger?' danger':' warn'}">
+          <div><div class="alert-name">${o.name||'—'}</div><div class="alert-meta">${o.id} · ${o.status||'—'} · Paid ${pct}%</div></div>
+          <div class="alert-amt">\u20b9${bal>0?bal.toLocaleString('en-IN'):(tot-rec).toLocaleString('en-IN')} due</div>
+        </div>`;
+      }).join('')}
+    </div></div>`:''}
+    ${overdue.length?`<div class="fc"><div class="fc-hdr"><h3>⚠️ Overdue (60+ days, ${overdue.length})</h3></div><div class="fc-body">
+      ${overdue.slice(0,10).map(o=>{
+        const se=o.subEvents&&o.subEvents[0]||{};
+        const evd=o.evdate||se.evdate||'';
+        const days=evd?Math.floor((new Date()-new Date(evd))/864e5):0;
+        return `<div class="alert-item danger">
+          <div><div class="alert-name">${o.name||'—'}</div><div class="alert-meta">${o.id} · ${days} days since event</div></div>
+          <div class="alert-amt">${o.status||'—'}</div>
+        </div>`;
+      }).join('')}
+    </div></div>`:''}`;
+}
+
+/* ═══ ID GENERATION ═══ */
+function genId(){
+  const n=new Date();const yy=String(n.getFullYear()).slice(2);
+  const ml=ML[n.toLocaleString('en',{month:'short'})]||'A';
+  const dd=String(n.getDate()).padStart(2,'0');
+  const sfx=mode==='studio'?'S':'E';
+  return `TEBO${yy}${ml}${dd}${sfx}${String(idCtr).padStart(3,'0')}`;
+}
+
+function checkDupId(id){return orders.some(o=>o.id===id);}
+
+/* ═══ STUDIO FORM ═══ */
+function renderStudioForm(el){
+  const id=genId();
+  el.innerHTML=`
+    <div class="fc"><div class="fc-hdr"><h3>🏠 New Studio Order</h3></div><div class="fc-body">
+      <div class="id-box"><div style="font-size:10px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.06em">Studio ID</div><div class="id-val">${id}</div></div>
+      <div class="f"><label>Customer name</label><input id="sf-name" placeholder="Full name"></div>
+      <div class="frow">
+        <div class="f"><label>WhatsApp (+91)</label><input id="sf-phone" placeholder="10 digits" maxlength="10" oninput="this.value=this.value.replace(/\\D/g,'').slice(0,10)"></div>
+        <div class="f"><label>Date</label><input id="sf-date" type="date" value="${new Date().toISOString().split('T')[0]}" onchange="showDay(this,'sf-day')"><span class="day-badge" id="sf-day">${DAYS[new Date().getDay()]}</span></div>
+      </div>
+      <div class="f"><label>Delivery date</label><input id="sf-deldate" type="date"></div>
+      <div class="f"><label>Requirements</label></div>
+      <div class="chips" id="stChips">
+        ${['Passport Photo','Frame','Prints','Gift Article','Photo Editing','Album','Lamination'].map(r=>
+          `<label class="chip"><input type="checkbox" value="${r}"><span>${r}</span></label>`
+        ).join('')}
+      </div>
+      <div class="f"><label>Work notes</label><textarea id="sf-notes" rows="2" placeholder="Details, size, qty…"></textarea></div>
+      <div class="frow">
+        <div class="f"><label>Amount (\u20b9)</label><input id="sf-amt" placeholder="0"></div>
+        <div class="f"><label>Status</label><select id="sf-status"><option>New</option><option>In Progress</option><option>Ready</option><option>Delivered</option><option>Complete</option></select></div>
+      </div>
+      <button class="btn-save" onclick="saveStudio()">💾 Save Studio Order</button>
+    </div></div>`;
+  initChips();
+}
+
+function saveStudio(){
+  const name=document.getElementById('sf-name').value;
+  if(!name){toast('Enter customer name');return;}
+  const ph=document.getElementById('sf-phone').value;
+  if(ph&&ph.length!==10){toast('Phone must be 10 digits');return;}
+  const reqs=[...document.querySelectorAll('#stChips input:checked')].map(i=>i.value);
+  const id=genId();
+  if(checkDupId(id)){toast('ID already exists!');return;}
+  const o={id,type:'studio',name,phone:'+91'+ph,odate:document.getElementById('sf-date').value,
+    deldate:document.getElementById('sf-deldate').value,reqs,notes:document.getElementById('sf-notes').value,
+    total:document.getElementById('sf-amt').value,status:document.getElementById('sf-status').value,
+    savedAt:new Date().toISOString()};
+  if(!Array.isArray(orders))orders=[];
+  orders.unshift(o);localStorage.setItem(SK,JSON.stringify(orders));
+  idCtr++;toast('Studio order saved!');renderStudioForm(document.getElementById('mainContent'));updateBadge();
+  setTimeout(()=>openMsg(o,'studio_confirm'),500);
+}
+
+/* ═══ EVENT FORM ═══ */
+function renderEventForm(el){
+  saveClientState(); // save current form values before re-rendering
+  if(!subEvs.length)subEvs=[{evtype:'',evdate:'',evstart:'',evend:'',venue:'',pkgCat:'',pkgKey:''}];
+  const stepBtns=STEPS_EV.map((s,i)=>
+    `<button class="tab${i===curStep?' on':''}" onclick="saveClientState();curStep=${i};renderEventForm(document.getElementById('mainContent'))">${s}</button>`
+  ).join('');
+  let body='';
+  if(curStep===0)body=evS0();
+  else if(curStep===1)body=evS1();
+  else if(curStep===2)body=evS2();
+  else if(curStep===3)body=evS3();
+  else if(curStep===4)body=evS4();
+  else if(curStep===5)body=evS5();
+  el.innerHTML=`<div class="tabs" style="margin:-14px -16px 14px;padding:0 16px">${stepBtns}</div>${body}`;
+  initChips();
+}
+
+function evS0(){
+  const autoId=genId();
+  const today=new Date();
+  const dateVal=today.toISOString().split('T')[0];
+  const dayName=DAYS[today.getDay()];
+  return `<div class="fc"><div class="fc-hdr"><h3>👤 Client & Order ID</h3></div><div class="fc-body">
+    <div class="id-toggle">
+      <button class="${idMode==='auto'?'on':''}" onclick="idMode='auto';renderEventForm(document.getElementById('mainContent'))">⚡ Auto</button>
+      <button class="${idMode==='manual'?'on':''}" onclick="idMode='manual';renderEventForm(document.getElementById('mainContent'))">✏️ Manual</button>
+    </div>
+    ${idMode==='auto'?
+      `<div class="id-box"><div class="id-val">${autoId}</div></div>`:
+      `<div class="f"><label>Enter Order ID</label><input id="manualId" placeholder="e.g. TEBO26G10E113" style="font-family:'DM Mono',monospace;font-weight:600" oninput="checkId(this)"></div><div id="idErr"></div>`}
+    <div class="f"><label>Customer name</label><input id="ef-name" placeholder="Full name"></div>
+    <div class="frow">
+      <div class="f"><label>WhatsApp (+91)</label><input id="ef-phone" placeholder="10 digits" maxlength="10" oninput="this.value=this.value.replace(/\\D/g,'').slice(0,10)"></div>
+      <div class="f"><label>Country code (non-India)</label><select id="ef-cc" style="font-size:12px"><option value="+91">🇮🇳 +91 India</option><option value="+1">🇺🇸 +1 US</option><option value="+44">🇬🇧 +44 UK</option><option value="+971">🇦🇪 +971 UAE</option><option value="+65">🇸🇬 +65 SG</option><option value="+60">🇲🇾 +60 MY</option></select></div>
+    </div>
+    <div class="f"><label>Email (optional)</label><input id="ef-email" type="email" placeholder="email@example.com"></div>
+    <div class="frow">
+      <div class="f"><label>Booking date</label><input id="ef-bdate" type="date" value="${dateVal}" onchange="showDay(this,'ef-day')"><span class="day-badge" id="ef-day">${dayName}</span></div>
+      <div class="f"><label>Booking time</label><input id="ef-btime" type="time" value="${today.toTimeString().slice(0,5)}"></div>
+    </div>
+    <div class="frow">
+      <div class="f"><label>Contact 2 (optional)</label><input id="ef-c2" placeholder="Name & number"></div>
+      <div class="f"><label>Contact 3 (optional)</label><input id="ef-c3" placeholder="Name & number"></div>
+    </div>
+    <div class="btn-row"><button class="btn-p" onclick="saveClientState();curStep=1;renderEventForm(document.getElementById('mainContent'))">Event & Package →</button></div>
+  </div></div>`;
+}
+
+function evS1(){
+  const typeToCategory={
+    'Birthday':'Birthday/Puberty/Baby Shower','First Birthday':'Birthday/Puberty/Baby Shower',
+    'Baby Shower':'Birthday/Puberty/Baby Shower','Half Saree':'Birthday/Puberty/Baby Shower',
+    'Naming ceremony':'Birthday/Puberty/Baby Shower','Baby Shoot':'Birthday/Puberty/Baby Shower',
+    'Ear Piercing':'Birthday/Puberty/Baby Shower','HOLY Communion':'Birthday/Puberty/Baby Shower',
+    'Engagement':'Engagement',
+    'Tamil Wedding':'Tamil Wedding','Wedding':'Tamil Wedding',
+    'Christian Wedding':'Christian Wedding',
+    'Telugu Wedding':'Telugu Wedding','Wed&Rec':'Telugu Wedding',
+    'RECEPTION&WEDDING':'Telugu Wedding'
+  };
+  const EVENT_TYPES=['Baby Shower','Baby Shoot','Birthday','First Birthday','Ear Piercing','Half Saree',
+    'Naming ceremony','HOLY Communion','Engagement','Tamil Wedding','Christian Wedding','Telugu Wedding',
+    'House Warming','Maternity Shoot','Haldi','Out door','Photoshoot','Sports Day','Yoga Shoot','Other'];
+  
+  const seHtml=subEvs.map((se,i)=>{
+    const cat=typeToCategory[se.evtype]||'';
+    const pkgs=cat?PACKAGES[cat]?.packages||{}:{};
+    const pkgKeys=Object.keys(pkgs);
+    
+    return `<div class="se-block">
+      ${subEvs.length>1?`<button class="se-rm" onclick="subEvs.splice(${i},1);renderEventForm(document.getElementById('mainContent'))">\u2715</button>`:''}
+      <div style="font-size:11px;font-weight:700;color:var(--t3);margin-bottom:6px">Event ${i+1}</div>
+      <div class="frow">
+        <div class="f"><label>Event type</label><select onchange="subEvs[${i}].evtype=this.value;subEvs[${i}].pkgKey='';renderEventForm(document.getElementById('mainContent'))">
+          <option value="">-- Select --</option>
+          ${EVENT_TYPES.map(t=>`<option${se.evtype===t?' selected':''}>${t}</option>`).join('')}
+        </select></div>
+        <div class="f"><label>Event date</label><input type="date" value="${se.evdate}" onchange="subEvs[${i}].evdate=this.value"><span class="day-badge">${se.evdate?DAYS[new Date(se.evdate+'T00:00').getDay()]:''}</span></div>
+      </div>
+      <div class="frow">
+        <div class="f"><label>Start</label><input type="time" value="${se.evstart}" onchange="subEvs[${i}].evstart=this.value"></div>
+        <div class="f"><label>End</label><input type="time" value="${se.evend}" onchange="subEvs[${i}].evend=this.value"></div>
+      </div>
+      <div class="f"><label>Venue</label>
+        <div style="display:flex;gap:5px">
+          <input value="${se.venue||''}" onchange="subEvs[${i}].venue=this.value" placeholder="Venue name, city" style="flex:1">
+          <button onclick="openMaps(${i})" style="padding:6px 12px;border:1px solid var(--bs);border-radius:6px;background:#fff;color:var(--t2);font-size:11px;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:3px">\ud83d\udccd Maps</button>
+        </div>
+      </div>
+      ${cat&&pkgKeys.length?`
+        <div style="font-size:10px;font-weight:700;color:var(--am);margin:10px 0 6px;text-transform:uppercase;letter-spacing:.06em">\ud83d\udce6 SELECT PACKAGE -- ${cat}</div>
+        ${pkgKeys.map(k=>{
+          const p=pkgs[k];
+          const isSel=se.pkgKey===k;
+          return `<div class="pkg-card${isSel?' sel':''}" onclick="subEvs[${i}].pkgKey='${k}';selPkgCat='${cat}';selPkgKey='${k}';renderEventForm(document.getElementById('mainContent'))">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div class="pkg-name">${k}</div>
+              <div class="pkg-price">\u20b9${p.price.toLocaleString('en-IN')}</div>
+            </div>
+            <div class="pkg-reqs">${p.reqs.join(' \u00b7 ')}</div>
+          </div>`;
+        }).join('')}
+      `:''}
+    </div>`;
+  }).join('');
+  
+  return `${getIdBanner()}<div class="fc"><div class="fc-hdr"><h3>\ud83d\udcc5 Event & Package</h3></div><div class="fc-body">
+    ${seHtml}
+    <button class="add-btn" style="width:100%;padding:8px;border:1.5px dashed var(--bs);border-radius:7px;background:#fff;color:var(--t2)" onclick="subEvs.push({evtype:'',evdate:'',evstart:'',evend:'',venue:'',pkgKey:''});renderEventForm(document.getElementById('mainContent'))">+ Add another event</button>
+    <div class="btn-row"><button class="btn-s" onclick="saveClientState();curStep=0;renderEventForm(document.getElementById('mainContent'))">\u2190 Back</button><button class="btn-p" onclick="saveClientState();curStep=2;renderEventForm(document.getElementById('mainContent'))">Quotation \u2192</button></div>
+  </div></div>`;
+}
+
+function evS2(){
+  const se0=subEvs[0]||{};
+  // FIX: Read package from the sub-event, not global
+  const typeToCategory={
+    'Birthday':'Birthday/Puberty/Baby Shower','First Birthday':'Birthday/Puberty/Baby Shower',
+    'Baby Shower':'Birthday/Puberty/Baby Shower','Half Saree':'Birthday/Puberty/Baby Shower',
+    'Naming ceremony':'Birthday/Puberty/Baby Shower','Baby Shoot':'Birthday/Puberty/Baby Shower',
+    'Ear Piercing':'Birthday/Puberty/Baby Shower','HOLY Communion':'Birthday/Puberty/Baby Shower',
+    'Engagement':'Engagement',
+    'Tamil Wedding':'Tamil Wedding','Wedding':'Tamil Wedding',
+    'Christian Wedding':'Christian Wedding',
+    'Telugu Wedding':'Telugu Wedding','Wed&Rec':'Telugu Wedding',
+    'RECEPTION&WEDDING':'Telugu Wedding'
+  };
+  const pk=se0.pkgKey||selPkgKey||'';
+  const cat=typeToCategory[se0.evtype]||selPkgCat||'';
+  // Sync globals
+  selPkgKey=pk; selPkgCat=cat;
+  let pkgData=null;
+  if(cat&&pk&&PACKAGES[cat]?.packages?.[pk]) pkgData=PACKAGES[cat].packages[pk];
+  const autoReqs=pkgData?pkgData.reqs:[];
+  const autoDels=pkgData?pkgData.dels:[];
+  const autoPrice=pkgData?pkgData.price:0;
+  
+  return `${getIdBanner()}<div class="fc"><div class="fc-hdr"><h3>\ud83d\udccb Quotation + Requirements + Deliverables</h3></div><div class="fc-body">
+    ${pk?`<div style="background:var(--gd);border:1px solid var(--gm);border-radius:7px;padding:8px 12px;margin-bottom:10px;font-size:12px"><span style="font-weight:700">Selected:</span> Package ${pk} \u2014 ${cat} \u2014 <span style="color:var(--g);font-weight:700">\u20b9${autoPrice?autoPrice.toLocaleString('en-IN'):''}</span></div>`:''}
+    <div class="qbox">
+      <div class="ql">Quotation</div>
+      <div class="f3">
+        <div class="f"><label>Quoted (\u20b9)</label><input id="ef-quoted" value="${autoPrice||''}" placeholder="0" oninput="calcFinal()"></div>
+        <div class="f"><label>Discount (\u20b9)</label><input id="ef-disc" placeholder="0" oninput="calcFinal()"></div>
+        <div class="f"><label>Final (\u20b9)</label><input id="ef-final" value="${autoPrice||''}" placeholder="0"></div>
+      </div>
+      <div id="qConfRow">${quotConf?'<div class="qconf">\u2705 Quotation confirmed</div>':
+        `<button style="width:100%;padding:9px;background:var(--gn);color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;margin-top:6px" onclick="quotConf=true;renderEventForm(document.getElementById('mainContent'))">\u2705 Confirm Quotation</button>`}</div>
+    </div>
+    <div class="f"><label>Requirements ${pk?'(from Package '+pk+')':''}</label></div>
+    <div class="chips" id="reqChips">
+      ${['Traditional Photo','Traditional Video','Candid Photo','Candid Video','Drone','Live Streaming'].map(r=>{
+        const isOn=autoReqs.includes(r);
+        return `<label class="chip${isOn?' on':''}"><input type="checkbox" value="${r}"${isOn?' checked':''}><span>${r}</span></label>`;
+      }).join('')}
+    </div>
+    <div class="f" style="margin-top:10px"><label>Deliverables ${pk?'(from Package '+pk+')':''}</label></div>
+    <div class="dl" id="delList">
+      ${Array.from({length:8},(_,n)=>{
+        const autoText=autoDels[n]||'';
+        return `<div class="di"><span class="di-n">${n+1}</span><input type="text" value="${autoText}" placeholder="e.g. 12x36 Album"><input type="checkbox" class="di-chk"></div>`;
+      }).join('')}
+    </div>
+    <div class="f"><label>Expected delivery date</label><input id="ef-deldate" type="date"></div>
+
+    <div style="margin-top:16px;border-top:2px solid var(--br);padding-top:14px">
+      <div style="font-size:11px;font-weight:700;color:var(--t2);margin-bottom:10px">\ud83d\udce8 SEND VIA WHATSAPP</div>
+      <div style="border:1px solid var(--wa);border-radius:8px;padding:10px;margin-bottom:8px;background:#f0fdf4">
+        <div style="font-size:10px;font-weight:700;color:var(--gn);text-transform:uppercase;margin-bottom:6px">\ud83d\udc64 TO CLIENT \u2014 Quotation + Requirements + Deliverables</div>
+        <div id="quotClientPreview" style="display:none;font-size:11px;color:var(--tx);white-space:pre-wrap;line-height:1.5;max-height:180px;overflow-y:auto;background:#fff;border:1px solid var(--br);border-radius:6px;padding:8px;margin-bottom:6px"></div>
+        <div style="display:flex;gap:6px">
+          <button style="flex:1;padding:8px;border:1px solid var(--bs);border-radius:6px;background:#fff;color:var(--gn);font-size:11px;font-weight:600;cursor:pointer" onclick="document.getElementById('quotClientPreview').style.display='block';document.getElementById('quotClientPreview').textContent=buildQuotPreviewMsg()">\ud83d\udc41 Preview</button>
+          <button style="flex:1;padding:8px;background:var(--wa);color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer" onclick="sendQuotPreview()">\ud83d\udce8 Send to Client</button>
+        </div>
+      </div>
+      <div style="border:1px solid #60a5fa;border-radius:8px;padding:10px;background:#eff6ff">
+        <div style="font-size:10px;font-weight:700;color:#1e5a9e;text-transform:uppercase;margin-bottom:6px">\ud83d\udc65 TO STAFF \u2014 Event Assignment</div>
+        <div id="quotStaffPreview" style="display:none;font-size:11px;color:var(--tx);white-space:pre-wrap;line-height:1.5;max-height:180px;overflow-y:auto;background:#fff;border:1px solid var(--br);border-radius:6px;padding:8px;margin-bottom:6px"></div>
+        <div style="display:flex;gap:6px">
+          <button style="flex:1;padding:8px;border:1px solid var(--bs);border-radius:6px;background:#fff;color:#1e5a9e;font-size:11px;font-weight:600;cursor:pointer" onclick="previewStaffMsg()">\ud83d\udc41 Preview</button>
+          <button style="flex:1;padding:8px;background:#1e5a9e;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer" onclick="sendStaffFromQuot()">\ud83d\udce8 Send to Staff</button>
+        </div>
+      </div>
+    </div>
+    <div class="btn-row"><button class="btn-s" onclick="saveClientState();curStep=1;renderEventForm(document.getElementById('mainContent'))">\u2190 Back</button><button class="btn-p" onclick="saveClientState();curStep=3;renderEventForm(document.getElementById('mainContent'))">Payment \u2192</button></div>
+  </div></div>`;
+}
+
+function evS3(){
+  return `${getIdBanner()}<div class="fc"><div class="fc-hdr"><h3>\ud83d\udcb0 Payment Details</h3></div><div class="fc-body">
+    <div class="ablock">
+      <div class="albl">Advance 1 \u2014 Booking (10-20%)</div>
+      <div class="frow">
+        <div class="f"><label>Amount (\u20b9)</label><input id="a1-amt" placeholder="e.g. 5000"></div>
+        <div class="f"><label>Date</label><input id="a1-date" type="date" value="${new Date().toISOString().split('T')[0]}"></div>
+      </div>
+      <div class="meths" id="a1m"><button class="meth" onclick="selM(this,'a1')">GPay</button><button class="meth" onclick="selM(this,'a1')">Cash</button><button class="meth" onclick="selM(this,'a1')">Bank</button></div>
+    </div>
+    <div class="ablock">
+      <div class="albl">Advance 2 \u2014 Before event (2-3 days, cash preferred)</div>
+      <div class="frow">
+        <div class="f"><label>Amount (\u20b9)</label><input id="a2-amt" placeholder="e.g. 20000"></div>
+        <div class="f"><label>Date</label><input id="a2-date" type="date"></div>
+      </div>
+      <div class="meths" id="a2m"><button class="meth" onclick="selM(this,'a2')">GPay</button><button class="meth" onclick="selM(this,'a2')">Cash</button><button class="meth" onclick="selM(this,'a2')">Bank</button></div>
+    </div>
+    <div class="ablock">
+      <div class="albl">Balance \u2014 Before album print proof</div>
+      <div class="frow">
+        <div class="f"><label>Balance (\u20b9)</label><input id="ef-bal" placeholder="0"></div>
+        <div class="f"><label>Due date</label><input id="ef-baldate" type="date"></div>
+      </div>
+    </div>
+
+    <!-- WA TO CLIENT: Payment Details -->
+    <div style="margin-top:16px;border-top:2px solid var(--br);padding-top:14px">
+      <div style="border:1px solid var(--wa);border-radius:8px;padding:10px;background:#f0fdf4">
+        <div style="font-size:10px;font-weight:700;color:var(--gn);text-transform:uppercase;margin-bottom:6px">\ud83d\udcb3 SEND PAYMENT DETAILS TO CLIENT</div>
+        <div id="payClientPreview" style="display:none;font-size:11px;color:var(--tx);white-space:pre-wrap;line-height:1.5;max-height:180px;overflow-y:auto;background:#fff;border:1px solid var(--br);border-radius:6px;padding:8px;margin-bottom:6px"></div>
+        <div style="display:flex;gap:6px">
+          <button style="flex:1;padding:8px;border:1px solid var(--bs);border-radius:6px;background:#fff;color:var(--gn);font-size:11px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif" onclick="document.getElementById('payClientPreview').style.display='block';document.getElementById('payClientPreview').textContent=buildPayPreviewMsg()">\ud83d\udc41 Preview</button>
+          <button style="flex:1;padding:8px;background:var(--wa);color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif" onclick="sendPayPreview()">\ud83d\udce8 Send to Client via WhatsApp</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row"><button class="btn-s" onclick="saveClientState();curStep=2;renderEventForm(document.getElementById('mainContent'))">\u2190 Back</button><button class="btn-p" onclick="saveClientState();curStep=4;renderEventForm(document.getElementById('mainContent'))">Team & Files \u2192</button></div>
+  </div></div>`;
+}
+
+function evS4(){
+  const se0=subEvs[0]||{};
+  const evDateStr=se0.evdate||'';
+  const evDate=evDateStr?new Date(evDateStr+'T00:00'):null;
+  const daysToEvent=evDate?Math.ceil((evDate-new Date())/864e5):null;
+  const evDateFmt=evDate?evDate.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):'TBD';
+  const clientName=document.getElementById('ef-name')?.value||'Client';
+  const clientPh=document.getElementById('ef-phone')?.value||'';
+  const orderId=idMode==='manual'?(document.getElementById('manualId')?.value||genId()):genId();
+  const se0x=subEvs[0]||{};const pkgLabel=(se0x.pkgKey||selPkgKey)?(se0x.pkgKey||selPkgKey)+' Package':'Custom';
+  const reqEls=document.querySelectorAll('#reqChips input:checked');
+  const reqsStr=reqEls?.length?[...reqEls].map(i=>i.value).join(', '):'As discussed';
+
+  const tmHtml=teamM.map((m,i)=>{
+    const sObj=staff.find(s=>s.name===m.name);
+    const phone=sObj?.phone||'';
+    const waMsg=encodeURIComponent(
+      `Hi ${m.name||'Team'},\n\n`+
+      `Assigned for event:\n\n`+
+      `Order: *${orderId}*\n`+
+      `Event: *${se0.evtype||'Event'}*\n`+
+      `Package: ${pkgLabel}\n`+
+      `Date: ${evDateFmt}\n`+
+      `Time: ${se0.evstart||'TBD'} to ${se0.evend||'TBD'}\n`+
+      `Venue: ${se0.venue||'TBD'}\n`+
+      `Your Role: *${m.role||'TBD'}*\n`+
+      `Requirements: ${reqsStr}\n\n`+
+      `Client: ${clientName}\n`+
+      `Contact: +91 ${clientPh}\n\n`+
+      `Please confirm.\n*Tebo Studio's*\n+91 72000 05099`
+    );
+    const waUrl=phone?'https://wa.me/91'+phone+'?text='+waMsg:'';
+
+    return `<div style="border:1px solid var(--br);border-radius:8px;padding:10px;background:var(--sf);margin-bottom:6px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <div>
+          <span style="font-size:13px;font-weight:700">${m.name||'Select staff'}</span>
+          ${m.role?` <span style="font-size:10px;color:var(--t3);background:var(--gd);padding:2px 6px;border-radius:4px">${m.role}</span>`:''}
+          ${phone?` <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gn)">\ud83d\udcde ${phone}</span>`:' <span style="font-size:10px;color:var(--rd)">\u26a0\ufe0f Add phone in Staff tab</span>'}
+        </div>
+        <div style="display:flex;gap:4px">
+          ${waUrl?`<a href="${waUrl}" target="_blank" style="padding:5px 12px;background:var(--wa);color:#fff;border-radius:6px;font-size:11px;font-weight:700;text-decoration:none">\ud83d\udce8 Send</a>`:''}
+          <button class="rm" onclick="teamM.splice(${i},1);renderEventForm(document.getElementById('mainContent'))">\u2715</button>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
+        <div>
+          <div style="font-size:9px;font-weight:700;color:var(--t3);margin-bottom:2px">NAME</div>
+          <select onchange="teamM[${i}].name=this.value;if(this.value==='__new__'){teamM[${i}].name='';this.style.display='none';this.nextElementSibling.style.display='block';}" style="width:100%;border:1px solid var(--bs);border-radius:5px;padding:5px 7px;font-size:11px;font-family:'DM Sans',sans-serif">
+            <option value="">Select staff</option>${staff.map(s=>`<option${m.name===s.name?' selected':''}>${s.name}${s.phone?' (\ud83d\udcde '+s.phone+')':''}</option>`).join('')}<option value="__new__">+ New</option>
+          </select>
+          <input placeholder="Type name" value="${m.name&&!staff.some(s=>s.name===m.name)?m.name:''}" onchange="teamM[${i}].name=this.value" style="display:${m.name&&!staff.some(s=>s.name===m.name)?'block':'none'};width:100%;border:1px solid var(--bs);border-radius:5px;padding:5px 7px;font-size:11px">
+        </div>
+        <div>
+          <div style="font-size:9px;font-weight:700;color:var(--t3);margin-bottom:2px">ROLE</div>
+          <select onchange="teamM[${i}].role=this.value;if(this.value==='__new__'){teamM[${i}].role='';this.style.display='none';this.nextElementSibling.style.display='block';}" style="width:100%;border:1px solid var(--bs);border-radius:5px;padding:5px 7px;font-size:11px;font-family:'DM Sans',sans-serif">
+            <option value="">Role</option>${['Photographer','Videographer','Candid Photo','Candid Video','Drone','Assistant','Editor'].map(r=>`<option${m.role===r?' selected':''}>${r}</option>`).join('')}<option value="__new__">+ Other</option>
+          </select>
+          <input placeholder="Custom role" value="${m.role&&!['Photographer','Videographer','Candid Photo','Candid Video','Drone','Assistant','Editor'].includes(m.role)?m.role:''}" onchange="teamM[${i}].role=this.value" style="display:${m.role&&!['Photographer','Videographer','Candid Photo','Candid Video','Drone','Assistant','Editor'].includes(m.role)?'block':'none'};width:100%;border:1px solid var(--bs);border-radius:5px;padding:5px 7px;font-size:11px">
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:5px">
+        <input placeholder="Vendor amt" value="${m.vendorAmt||''}" onchange="teamM[${i}].vendorAmt=this.value" style="border:1px solid var(--bs);border-radius:5px;padding:5px 7px;font-size:11px">
+        <select onchange="teamM[${i}].vendorStatus=this.value" style="border:1px solid var(--bs);border-radius:5px;padding:5px 7px;font-size:11px;font-family:'DM Sans',sans-serif">
+          ${['Pending','Partial','Paid'].map(s=>`<option${m.vendorStatus===s?' selected':''}>${s}</option>`).join('')}
+        </select>
+      </div>
+    </div>`;
+  }).join('');
+
+  return `${getIdBanner()}<div class="fc"><div class="fc-hdr"><h3>\ud83d\udc65 Team & \ud83d\uddc2 File Status</h3></div><div class="fc-body">
+    ${daysToEvent!==null?`<div style="padding:8px 12px;border-radius:7px;font-size:13px;font-weight:700;margin-bottom:10px;text-align:center;${daysToEvent>3?'background:var(--gnb);color:var(--gn)':daysToEvent>0?'background:var(--amb);color:var(--am)':daysToEvent===0?'background:var(--rdb);color:var(--rd)':'background:var(--sf);color:var(--t2)'}">${daysToEvent>0?'\u23f0 '+daysToEvent+' days to event':daysToEvent===0?'\ud83d\udd34 EVENT TODAY':'\u2705 Event done '+Math.abs(daysToEvent)+' days ago'}</div>`:''}
+
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <div style="font-size:11px;font-weight:700;color:var(--t2)">MEMBERS ASSIGNED</div>
+      ${teamM.length?`<button style="padding:5px 10px;border:1px solid var(--wa);border-radius:6px;background:#e8f5ee;color:var(--gn);font-size:10px;font-weight:700;cursor:pointer" onclick="sendAllTeamWA()">\ud83d\udce8 Send ALL (${teamM.filter(m=>m.name).length})</button>`:''}
+    </div>
+    ${tmHtml||'<div style="font-size:12px;color:var(--t3);margin-bottom:6px;padding:12px;border:1px dashed var(--bs);border-radius:7px;text-align:center">No members assigned yet</div>'}
+    <button class="add-btn" style="width:100%;margin-bottom:14px" onclick="teamM.push({name:'',role:'',vendorAmt:'',vendorStatus:'Pending'});renderEventForm(document.getElementById('mainContent'))">+ Add team member</button>
+
+    <div style="font-size:11px;font-weight:700;color:var(--t2);margin-bottom:8px">FILE & DELIVERY STATUS</div>
+    <div class="trow">
+      <button class="tog ${arrivedOk?'g':'r'}" onclick="arrivedOk=!arrivedOk;renderEventForm(document.getElementById('mainContent'))">${arrivedOk?'\ud83d\udfe2 Arrived':'\ud83d\udd34 Not arrived'}</button>
+    </div>
+    <div class="trow">
+      <button class="tog ${photosOk?'g':'r'}" onclick="photosOk=!photosOk;renderEventForm(document.getElementById('mainContent'))">Photos ${photosOk?'\ud83d\udfe2 Copied':'\ud83d\udd34 Pending'}</button>
+      <button class="tog ${nasOk?'g':'r'}" onclick="nasOk=!nasOk;renderEventForm(document.getElementById('mainContent'))">Video/NAS ${nasOk?'\ud83d\udfe2 Done':'\ud83d\udd34 Pending'}</button>
+    </div>
+    <div class="trow">
+      <button class="tog ${smugOk?'g':'r'}" onclick="smugOk=!smugOk;renderEventForm(document.getElementById('mainContent'))">SmugMug ${smugOk?'\ud83d\udfe2 Shared':'\ud83d\udd34 Pending'}</button>
+      <button class="tog ${pixOk?'g':'r'}" onclick="pixOk=!pixOk;renderEventForm(document.getElementById('mainContent'))">PixStudio ${pixOk?'\ud83d\udfe2 Shared':'\ud83d\udd34 Pending'}</button>
+    </div>
+    <div class="frow" style="margin-top:6px">
+      <input id="ef-smuglink" placeholder="SmugMug URL" style="border:1px solid var(--bs);border-radius:6px;padding:6px 8px;font-size:11px">
+      <input id="ef-pixlink" placeholder="PixStudio URL" style="border:1px solid var(--bs);border-radius:6px;padding:6px 8px;font-size:11px">
+    </div>
+    <div class="btn-row"><button class="btn-s" onclick="saveClientState();curStep=3;renderEventForm(document.getElementById('mainContent'))">\u2190 Back</button><button class="btn-p" onclick="saveClientState();curStep=5;renderEventForm(document.getElementById('mainContent'))">Delivery Notes \u2192</button></div>
+  </div></div>`;
+}
+
+function evS5(){
+  return `<div class="fc"><div class="fc-hdr"><h3>📖 Album & Confirm</h3></div><div class="fc-body">
+    <div class="f"><label>Album proof link</label><input id="ef-prooflink" placeholder="Google Drive link"></div>
+    <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+      <input type="checkbox" id="ef-proofok" style="accent-color:var(--gn);width:13px;height:13px">
+      <label for="ef-proofok" style="font-size:12px;color:var(--t2);cursor:pointer">Client approved proof</label>
+    </div>
+    <div class="f"><label>Status</label><select id="ef-status"><option>New</option><option>Confirmed</option><option>In Progress</option><option>Delivered</option><option>Complete</option></select></div>
+    <div class="f"><label>Internal notes</label><textarea id="ef-notes" rows="2" placeholder="Team notes…"></textarea></div>
+    <div class="btn-row"><button class="btn-s" onclick="saveClientState();curStep=4;renderEventForm(document.getElementById('mainContent'))">← Back</button></div>
+    <button class="btn-save" onclick="saveEvent()">💾 Save Event Order</button>
+  </div></div>`;
+}
+
+/* ═══ HELPERS ═══ */
+function calcFinal(){
+  const q=parseFloat(document.getElementById('ef-quoted')?.value)||0;
+  const d=parseFloat(document.getElementById('ef-disc')?.value)||0;
+  const el=document.getElementById('ef-final');if(el)el.value=q>0?String(q-d):'';
+}
+function selM(btn,key){btn.closest('.meths').querySelectorAll('.meth').forEach(b=>b.classList.remove('on'));btn.classList.add('on');methState[key]=btn.textContent;}
+function showDay(input,spanId){const d=new Date(input.value+'T00:00');const el=document.getElementById(spanId);if(el&&!isNaN(d))el.textContent=DAYS[d.getDay()];}
+function checkId(input){
+  const err=document.getElementById('idErr');
+  if(checkDupId(input.value)){err.innerHTML='<div class="id-err">⚠️ This ID already exists!</div>';}
+  else{err.innerHTML='';}
+}
+function initChips(){document.querySelectorAll('.chips .chip').forEach(c=>c.addEventListener('change',()=>c.classList.toggle('on',c.querySelector('input').checked)));}
+
+function saveEvent(){
+  const name=document.getElementById('ef-name')?.value;
+  if(!name){toast('Enter customer name');curStep=0;renderEventForm(document.getElementById('mainContent'));return;}
+  const ph=document.getElementById('ef-phone')?.value||'';
+  const cc=document.getElementById('ef-cc')?.value||'+91';
+  if(ph&&ph.length!==10){toast('Phone must be 10 digits');return;}
+  const reqs=[...document.querySelectorAll('#reqChips input:checked')].map(i=>i.value);
+  const dels=[...document.querySelectorAll('#delList .di')].map(r=>({
+    text:r.querySelector('input[type=text]')?.value?.trim()||'',
+    done:r.querySelector('.di-chk')?.checked||false
+  })).filter(d=>d.text);
+  const oid=idMode==='manual'?(document.getElementById('manualId')?.value||genId()):genId();
+  if(checkDupId(oid)){toast('ID already exists! Change it.');curStep=0;renderEventForm(document.getElementById('mainContent'));return;}
+  const o={
+    id:oid,type:'event',name,phone:cc+ph,
+    email:document.getElementById('ef-email')?.value||'',
+    odate:document.getElementById('ef-bdate')?.value||'',
+    otime:document.getElementById('ef-btime')?.value||'',
+    contacts:[document.getElementById('ef-c2')?.value||'',document.getElementById('ef-c3')?.value||''],
+    subEvents:[...subEvs],reqs,
+    pkgCat:selPkgCat,pkgKey:selPkgKey,
+    quoted:document.getElementById('ef-quoted')?.value||'',
+    discount:document.getElementById('ef-disc')?.value||'',
+    total:document.getElementById('ef-final')?.value||'',
+    quotationConfirmed:quotConf,
+    a1:{amt:document.getElementById('a1-amt')?.value||'',date:document.getElementById('a1-date')?.value||'',meth:methState.a1},
+    a2:{amt:document.getElementById('a2-amt')?.value||'',date:document.getElementById('a2-date')?.value||'',meth:methState.a2},
+    balance:document.getElementById('ef-bal')?.value||'',
+    baldate:document.getElementById('ef-baldate')?.value||'',
+    teamMembers:[...teamM],vendors:[...vendorList],
+    arrivedAtVenue:arrivedOk,photosCopied:photosOk,nasCopied:nasOk,
+    smugShared:smugOk,smugLink:document.getElementById('ef-smuglink')?.value||'',
+    pixShared:pixOk,pixLink:document.getElementById('ef-pixlink')?.value||'',
+    dels,deldate:document.getElementById('ef-deldate')?.value||'',
+    proofLink:document.getElementById('ef-prooflink')?.value||'',
+    proofOk:document.getElementById('ef-proofok')?.checked||false,
+    status:document.getElementById('ef-status')?.value||'New',
+    notes:document.getElementById('ef-notes')?.value||'',
+    savedAt:new Date().toISOString(),lastrem:'',remCount:0
+  };
+  if(!Array.isArray(orders))orders=[];
+  orders.unshift(o);localStorage.setItem(SK,JSON.stringify(orders));
+  idCtr++;toast('Event order saved!');resetFormState();curStep=0;
+  renderEventForm(document.getElementById('mainContent'));updateBadge();
+  setTimeout(()=>{
+    if(o.quotationConfirmed)openMsg(o,'quot_full');
+    else openMsg(o,'booking');
+  },600);
+}
+
+/* ═══ MESSAGES ═══ */
+function buildMsg(o,trigger){
+  const nm=o.name||"Sir/Ma'am";
+  const se=o.subEvents&&o.subEvents[0]||{};
+  const evdate=se.evdate?new Date(se.evdate).toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):'your event';
+  const venue=se.venue||'the venue';
+  const evtype=se.evtype||'Event';
+  const reqs=o.reqs&&o.reqs.length?o.reqs.join(', '):'photography services';
+  const final=o.total?'\u20b9'+Number(o.total).toLocaleString('en-IN'):'the agreed amount';
+  const quoted=o.quoted?'\u20b9'+Number(o.quoted).toLocaleString('en-IN'):'';
+  const disc=o.discount&&Number(o.discount)>0?'\u20b9'+Number(o.discount).toLocaleString('en-IN'):'';
+  const a1=o.a1&&o.a1.amt?'\u20b9'+Number(o.a1.amt).toLocaleString('en-IN'):'';
+  const bal=o.balance?'\u20b9'+Number(o.balance).toLocaleString('en-IN'):'balance';
+  const smugL=o.smugLink||'[link]';const pixL=o.pixLink||'[link]';
+  const proofL=o.proofLink||'[link]';
+  const delsText=o.dels&&o.dels.length?o.dels.map(d=>d.text).join('\n• '):'deliverables';
+  const allEvts=o.subEvents&&o.subEvents.length>1?o.subEvents.map((s,i)=>
+    '  Event '+(i+1)+': '+(s.evtype||'')+' \u2014 '+(s.evdate||'TBD')+' at '+(s.venue||'TBD')
+  ).join('\n'):'';
+  const pkgLabel=o.pkgKey?`${o.pkgKey} Package`:'Custom';
+  
+  const T={
+    booking:`Hi ${nm},\n\n\ud83c\udf89 Your booking with *Tebo Studio's* is *confirmed!*\n\n\ud83d\udccb Order: *${o.id}*\n\ud83d\udcc5 ${evdate}\n\ud83d\udccd ${venue}\n\ud83c\udfa8 ${evtype}\n\ud83d\udcf8 ${reqs}\n\n\ud83d\udcde +91 72000 05099\n\u2728 *Tebo Studio's*`,
+    quot_full:`Hi ${nm},\n\nThank you for confirming! \ud83d\ude4f\n\n\ud83d\udccb Order: *${o.id}*\n\ud83c\udff7 *${pkgLabel}*\n\n\ud83d\udcc5 *Event:*\n${allEvts||evtype+' \u2014 '+evdate+'\n\ud83d\udccd '+venue}\n\n\ud83d\udcf8 *Requirements:*\n\u2022 ${reqs.split(', ').join('\n\u2022 ')}\n\n\ud83d\udce6 *Deliverables:*\n\u2022 ${delsText}\n\n\ud83d\udcb0 *Amount:*\n${quoted?'Quoted: '+quoted+'\n':''}${disc?'Discount: '+disc+'\n':''}\u2705 Final: *${final}*\n${a1?'Advance received: '+a1+'\n':''}\n*Payment Schedule:*\n1\ufe0f\u20e3 Advance 1: At booking\n2\ufe0f\u20e3 Advance 2: 2-3 days before event\n3\ufe0f\u20e3 Balance: Before album proof\n\n\ud83d\udcde +91 72000 05099 | +91 99405 17128\n\ud83c\udf10 www.tebostudios.com\n\u2728 *Tebo Studio's*`,
+    payment:`Hi ${nm},\n\n\ud83d\udcb3 *Payment Details \u2014 Tebo Studio's*\n\nOrder: *${o.id}*\n\ud83d\udcb0 Final: *${final}*\n${a1?'\u2705 Advance 1: '+a1+'\n':''}\n\ud83d\udcb2 Balance: *${bal}*\n\nSmugMug: ${smugL}\nPixStudio: ${pixL}\n\n\ud83d\udcde +91 72000 05099\n\u2728 *Tebo Studio's*`,
+    advance2:`Hi ${nm},\n\n\ud83d\udcb0 Gentle reminder \u2014 2nd advance due 2-3 days before event.\n\n\ud83d\udccb ${o.id}\n\ud83d\udcc5 ${evdate}\n\nCash preferred. \ud83d\udcde +91 72000 05099\n\u2728 *Tebo Studio's*`,
+    reminder:`Hi ${nm},\n\n\ud83d\udcf8 Your photos are ready for selection!\n\n\ud83d\udd17 Gallery: ${smugL}\n\nPlease select your favourites.\n\ud83d\udcde +91 72000 05099\n\u2728 *Tebo Studio's*`,
+    pixstudio:`Hi ${nm},\n\n\ud83c\udf1f Photos now on PixStudio!\n\n\ud83d\udd17 ${pixL}\n\nView, download & order prints.\n\ud83d\udcde +91 72000 05099\n\u2728 *Tebo Studio's*`,
+    delivery:`Hi ${nm},\n\n\ud83c\udf8a Your files are ready!\n\n\ud83d\udce6 ${delsText}\n\nThank you! \ud83d\udc9b\n\ud83d\udcde +91 72000 05099`,
+    proof:`Hi ${nm},\n\n\ud83d\udcd6 Album proof ready!\n\n\ud83d\udd17 ${proofL}\n\nReply *APPROVED* to confirm.\n\u26a0\ufe0f Balance *${bal}* due before printing.\n\ud83d\udcde +91 72000 05099\n\u2728 *Tebo Studio's*`,
+    studio_confirm:`Hi ${nm},\n\n\u2705 Order confirmed at *Tebo Studio's*!\n\n\ud83d\udccb ${o.id}\n\ud83d\udcf8 ${o.reqs?o.reqs.join(', '):'your order'}\n\nWe'll notify once ready.\n\ud83d\udcde +91 72000 05099\n\u2728 *Tebo Studio's*`,
+    studio_ready:`Hi ${nm},\n\n\ud83c\udf89 Your order is *ready!*\n\n\ud83d\udccb ${o.id}\nVisit us to collect.\n\ud83d\udccd Kodungaiyur, Chennai-600118\n\ud83d\udcde +91 72000 05099\n\u2728 *Tebo Studio's*`
+  };
+  return T[trigger]||T.booking;
+}
+
+function openMsg(o,trigger){
+  mOrder=o;mTrigger=trigger;mCh='wa';
+  const titles={booking:'\ud83d\udce9 Booking',quot_full:'\u2705 Quot+Req+Del',payment:'\ud83d\udcb3 Payment+Links',
+    advance2:'\ud83d\udcb0 2nd Advance',reminder:'\u23f0 Reminder',pixstudio:'\ud83c\udf1f PixStudio',
+    delivery:'\ud83d\udce6 Delivery',proof:'\ud83d\udcd6 Proof',studio_confirm:'\u2705 Confirmed',studio_ready:'\ud83c\udf89 Ready'};
+  document.getElementById('msgTitle').textContent=titles[trigger]||'Send';
+  swCh('wa');document.getElementById('msgModal').classList.remove('hidden');
+}
+function swCh(ch){
+  mCh=ch;
+  ['wa','sms','em'].forEach(c=>{document.getElementById('ch-'+c).className='ch'+(c===ch?' '+c:'');});
+  document.getElementById('msgBody').textContent=buildMsg(mOrder,mTrigger);
+  const btn=document.getElementById('sendBtn');
+  btn.textContent=ch==='wa'?'Open WhatsApp \u2197':ch==='sms'?'Copy SMS':'Open Email \u2197';
+  btn.className='sbtn '+(ch==='email'?'em':ch);
+}
+function sendMsg(){
+  const m=buildMsg(mOrder,mTrigger);
+  if(mCh==='wa')window.open('https://wa.me/'+(mOrder.phone||'').replace(/\D/g,'')+'?text='+encodeURIComponent(m),'_blank');
+  else navigator.clipboard.writeText(m).then(()=>toast('Copied!'));
+  closeModal();
+}
+function copyMsg(){navigator.clipboard.writeText(buildMsg(mOrder,mTrigger)).then(()=>toast('Copied!'));}
+function closeModal(){document.getElementById('msgModal').classList.add('hidden');}
+
+/* ═══ REMINDERS ═══ */
+function remDue(o){
+  if(o.type==='studio')return false;
+  const se=o.subEvents&&o.subEvents[0];
+  const evd=o.evdate||se?.evdate||'';
+  if(!evd)return false;
+  const days=Math.floor((new Date()-new Date(evd))/864e5);
+  if(days<15)return false;
+  if(o.smugShared&&o.pixShared)return false;
+  if(!o.lastrem)return true;
+  return Math.floor((new Date()-new Date(o.lastrem))/864e5)>=7;
+}
+
+function renderReminders(el){
+  const due=orders.map((o,i)=>({o,i})).filter(({o})=>remDue(o));
+  if(!due.length){el.innerHTML='<div class="empty"><div style="font-size:32px;opacity:.3">\u2705</div><h3>No reminders due</h3></div>';return;}
+  el.innerHTML=due.map(({o,i})=>{
+    const se=o.subEvents&&o.subEvents[0]||{};
+    const evd=o.evdate||se.evdate||'';
+    const days=evd?Math.floor((new Date()-new Date(evd))/864e5):0;
+    return `<div class="oc" style="margin-bottom:10px">
+      <div class="oct"><div>
+        <div class="oc-id">${o.id}</div><div class="oc-name">${o.name||'\u2014'}</div>
+        <div class="oc-meta">\ud83d\udcc5 ${evd} \u00b7 ${days} days ago</div>
+      </div><span class="stb s-conf">\u23f0 Due</span></div>
+      <div style="padding:8px 14px;font-size:12px;color:var(--t2);border-bottom:1px solid var(--br)">
+        SmugMug: <b style="color:${o.smugShared?'var(--gn)':'var(--rd)'}">${o.smugShared?'\u2713':'\u2717'}</b> | 
+        PixStudio: <b style="color:${o.pixShared?'var(--gn)':'var(--rd)'}">${o.pixShared?'\u2713':'\u2717'}</b> | 
+        Sent: ${o.remCount||0}\u00d7
+      </div>
+      <div style="padding:8px 14px;display:flex;gap:6px">
+        <button class="mb mb-g" onclick="markRem(${i})">\ud83d\udcf2 Send & Mark</button>
+        <button class="mb mb-a" onclick="openMsg(orders[${i}],'reminder')">\ud83d\udc41 Preview</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function markRem(idx){
+  orders[idx].lastrem=new Date().toISOString().split('T')[0];
+  orders[idx].remCount=(orders[idx].remCount||0)+1;
+  localStorage.setItem(SK,JSON.stringify(orders));
+  openMsg(orders[idx],'reminder');toast('Marked sent');renderApp();
+}
+
+/* ═══ ORDER LIST ═══ */
+function renderOrderList(el){
+  el.innerHTML=`
+    <div class="sbar">
+      <input id="srch" placeholder="Search name, ID, venue\u2026" oninput="filterCards()">
+      <select id="fMonth" onchange="filterCards()"><option value="">All months</option>
+        ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].map(m=>`<option>${m}</option>`).join('')}
+      </select>
+      <select id="fStatus" onchange="filterCards()"><option value="">All</option>
+        ${['New','Confirmed','In Progress','Delivered','Complete'].map(s=>`<option>${s}</option>`).join('')}
+      </select>
+      <button class="ibtn" onclick="exportCSV()">\u2b07 CSV</button>
+    </div>
+    <div class="ol" id="cardList"></div>`;
+  filterCards();
+}
+
+function filterCards(){
+  const q=(document.getElementById('srch')?.value||'').toLowerCase();
+  const fm=(document.getElementById('fMonth')?.value||'').toLowerCase();
+  const fs=document.getElementById('fStatus')?.value||'';
+  const filtered=orders.filter(o=>{
+    if(mode==='studio'&&o.type!=='studio')return false;
+    if(mode==='event'&&o.type==='studio')return false;
+    if(q&&!(o.name||'').toLowerCase().includes(q)&&!(o.id||'').toLowerCase().includes(q)&&
+       !(o.venue||'').toLowerCase().includes(q)&&!(o.subEvents||[]).some(s=>(s.venue||'').toLowerCase().includes(q)))return false;
+    if(fm&&(o.month||'').toLowerCase()!==fm)return false;
+    if(fs&&o.status!==fs)return false;
+    return true;
+  });
+  const el=document.getElementById('cardList');
+  if(!filtered.length){el.innerHTML='<div class="empty"><div style="font-size:32px;opacity:.3">\ud83d\udcf7</div><h3>No orders found</h3></div>';return;}
+  el.innerHTML=filtered.map(o=>o.type==='studio'?studioCard(o):eventCard(o)).join('');
+}
+
+function eventCard(o){
+  const rd=remDue(o);const se=o.subEvents&&o.subEvents[0]||{};
+  const evd=o.evdate||se.evdate||'';const a1ok=o.a1&&o.a1.amt;const a2ok=o.a2&&o.a2.amt;
+  const dd=o.dels?o.dels.filter(d=>d.done).length:0;const dt=o.dels?o.dels.length:0;
+  const smugLnk=o.smugLink?` <a href="${o.smugLink}" target="_blank" style="font-size:9px;color:var(--gn)">\ud83d\udd17</a>`:'';
+  const pixLnk=o.pixLink?` <a href="${o.pixLink}" target="_blank" style="font-size:9px;color:var(--gn)">\ud83d\udd17</a>`:'';
+  return `<div class="oc">
+    <div class="oct">
+      <div>
+        <div class="oc-id">${o.id}</div>
+        <div class="oc-name">${o.name||'\u2014'}</div>
+        <div class="oc-meta">\ud83d\udcde ${o.phone||'\u2014'}</div>
+        <div class="oc-meta">${evd?'\ud83d\udcc5 '+evd:''} ${se.evtype?'\u00b7 '+se.evtype:''} ${se.venue?'\u00b7 \ud83d\udccd '+se.venue:''}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px">
+        <span class="stb ${stcl(o.status)}">${o.status||'New'}</span>
+        ${rd?'<span class="rp">\u23f0</span>':''}
+      </div>
+    </div>
+    <div class="pills">
+      <span class="ip ${o.quotationConfirmed?'g':'r'}"><span class="d"></span>Quot</span>
+      <span class="ip ${a1ok?'g':'r'}"><span class="d"></span>Adv1</span>
+      <span class="ip ${a2ok?'g':'r'}"><span class="d"></span>Adv2</span>
+      <span class="ip ${o.arrivedAtVenue?'g':'r'}"><span class="d"></span>Arr</span>
+      <span class="ip ${o.photosCopied?'g':'r'}"><span class="d"></span>Photo</span>
+      <span class="ip ${o.nasCopied?'g':'r'}"><span class="d"></span>NAS</span>
+      <span class="ip ${o.smugShared?'g':'r'}"><span class="d"></span>Smug${smugLnk}</span>
+      <span class="ip ${o.pixShared?'g':'r'}"><span class="d"></span>Pix${pixLnk}</span>
+      ${dt>0?`<span class="ip ${dd===dt?'g':'r'}"><span class="d"></span>${dd}/${dt}</span>`:''}
+      ${o.proofOk?'<span class="ip g"><span class="d"></span>Proof</span>':''}
+    </div>
+    <div class="ocg">
+      <div><div class="oil">Quoted</div><div class="oiv">${o.quoted?'\u20b9'+Number(o.quoted).toLocaleString('en-IN'):'\u2014'}</div></div>
+      <div><div class="oil">Final</div><div class="oiv gold">${o.total?'\u20b9'+Number(o.total).toLocaleString('en-IN'):'\u2014'}</div></div>
+      <div><div class="oil">Balance</div><div class="oiv" style="${o.balance&&Number(o.balance)>0?'color:var(--rd)':''}">${o.balance&&Number(o.balance)>0?'\u20b9'+Number(o.balance).toLocaleString('en-IN'):'Nil'}</div></div>
+    </div>
+    <div class="msgs">
+      <button class="mb mb-g" onclick="openMsg(oid('${o.id}'),'booking')">\ud83d\udce9 Book</button>
+      <button class="mb mb-a" onclick="openMsg(oid('${o.id}'),'quot_full')">\u2705 Quot+Req</button>
+      <button class="mb mb-a" onclick="openMsg(oid('${o.id}'),'payment')">\ud83d\udcb3 Pay+Links</button>
+      <button class="mb mb-a" onclick="openMsg(oid('${o.id}'),'advance2')">\ud83d\udcb0 Adv2</button>
+      <button class="mb mb-g" onclick="openMsg(oid('${o.id}'),'reminder')">\u23f0 Rem</button>
+      <button class="mb mb-b" onclick="openMsg(oid('${o.id}'),'pixstudio')">\ud83c\udf1f Pix</button>
+      <button class="mb mb-p" onclick="openMsg(oid('${o.id}'),'delivery')">\ud83d\udce6 Files</button>
+      <button class="mb mb-r" onclick="openMsg(oid('${o.id}'),'proof')">\ud83d\udcd6 Proof</button>
+    </div>
+    <div class="ocf">
+      <select class="stsel" onchange="updSt('${o.id}',this.value)">
+        ${['New','Confirmed','In Progress','Delivered','Complete'].map(s=>`<option${o.status===s?' selected':''}>${s}</option>`).join('')}
+      </select>
+      <button class="dbtn" onclick="delO('${o.id}')">Remove</button>
+    </div>
+  </div>`;
+}
+
+function studioCard(o){
+  return `<div class="oc">
+    <div class="oct">
+      <div>
+        <div class="oc-id">${o.id}</div><div class="oc-name">${o.name||'\u2014'}</div>
+        <div class="oc-meta">\ud83d\udcde ${o.phone||'\u2014'} \u00b7 ${o.odate||''}</div>
+        ${o.reqs?`<div class="oc-meta">${o.reqs.join(', ')}</div>`:''}
+      </div>
+      <span class="stb ${stcl(o.status)}">${o.status||'New'}</span>
+    </div>
+    <div class="msgs">
+      <button class="mb mb-g" onclick="openMsg(oid('${o.id}'),'studio_confirm')">\u2705 Confirm</button>
+      <button class="mb mb-g" onclick="openMsg(oid('${o.id}'),'studio_ready')">\ud83c\udf89 Ready</button>
+      <button class="mb mb-r" onclick="openMsg(oid('${o.id}'),'payment')">\ud83d\udcb3 Pay</button>
+    </div>
+    <div class="ocf">
+      <select class="stsel" onchange="updSt('${o.id}',this.value)">
+        ${['New','In Progress','Ready','Delivered','Complete'].map(s=>`<option${o.status===s?' selected':''}>${s}</option>`).join('')}
+      </select>
+      <button class="dbtn" onclick="delO('${o.id}')">Remove</button>
+    </div>
+  </div>`;
+}
+
+function stcl(s){return{New:'s-new',Confirmed:'s-conf','In Progress':'s-prog',Delivered:'s-del',Complete:'s-done',Ready:'s-prog'}[s]||'s-new';}
+function oid(id){return orders.find(x=>x.id===id);}
+function updSt(id,s){const o=oid(id);if(!o)return;o.status=s;localStorage.setItem(SK,JSON.stringify(orders));filterCards();toast('Status \u2192 '+s);}
+function delO(id){if(!confirm('Remove?'))return;orders=orders.filter(x=>x.id!==id);localStorage.setItem(SK,JSON.stringify(orders));filterCards();updateBadge();}
+
+/* ═══ STAFF ═══ */
+function renderStaffView(el){
+  el.innerHTML=`
+    <div class="fc"><div class="fc-hdr"><h3>\ud83d\udc65 Staff Directory</h3>
+      <div style="font-size:11px;color:var(--t3);margin-top:2px">Phone saved once, used for all WhatsApp messages</div>
+    </div><div class="fc-body">
+      <div style="display:flex;gap:6px;margin-bottom:12px">
+        <input id="newStaff" placeholder="Name" style="flex:1;border:1px solid var(--bs);border-radius:7px;padding:7px 9px;font-size:13px;font-family:'DM Sans',sans-serif">
+        <input id="newPhone" placeholder="Phone (10 digits)" maxlength="10" style="flex:1;border:1px solid var(--bs);border-radius:7px;padding:7px 9px;font-size:13px;font-family:'DM Mono',monospace" oninput="this.value=this.value.replace(/\\D/g,'').slice(0,10)">
+        <button class="ibtn" onclick="addStaff()">+ Add</button>
+      </div>
+      <div id="staffCards"></div>
+    </div></div>`;
+  renderStaffCards();
+}
+function addStaff(){
+  const n=document.getElementById('newStaff').value.trim();
+  const p=document.getElementById('newPhone').value.trim();
+  if(!n)return;
+  if(staff.some(s=>s.name===n)){toast('Already exists');return;}
+  staff.push({name:n,phone:p});localStorage.setItem(SKS,JSON.stringify(staff));
+  document.getElementById('newStaff').value='';document.getElementById('newPhone').value='';
+  renderStaffCards();toast('Added');
+}
+function rmStaff(i){staff.splice(i,1);localStorage.setItem(SKS,JSON.stringify(staff));renderStaffCards();}
+function renderStaffCards(){
+  const el=document.getElementById('staffCards');
+  if(!staff.length){el.innerHTML='<div style="font-size:12px;color:var(--t3)">No staff added</div>';return;}
+  el.innerHTML=staff.map((s,i)=>`<div style="display:flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid var(--br);border-radius:8px;margin-bottom:6px;background:#fff">
+    <div style="flex:1">
+      <div style="font-size:14px;font-weight:600">${s.name}</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+        <span style="font-size:11px;color:var(--t3)">\ud83d\udcde</span>
+        <input value="${s.phone||''}" placeholder="Enter 10 digits" maxlength="10" 
+          oninput="this.value=this.value.replace(/\\D/g,'').slice(0,10)"
+          onchange="staff[${i}].phone=this.value;localStorage.setItem(SKS,JSON.stringify(staff));toast('\u2705 Phone saved for '+staff[${i}].name)"
+          style="border:1px solid var(--bs);border-radius:5px;padding:5px 8px;font-size:13px;font-family:'DM Mono',monospace;width:130px;letter-spacing:1px">
+        ${s.phone?`<a href="https://wa.me/91${s.phone}" target="_blank" style="padding:4px 10px;background:var(--wa);color:#fff;border-radius:5px;font-size:11px;font-weight:700;text-decoration:none">\ud83d\udce8 WA</a>`:'<span style="font-size:10px;color:var(--rd);background:var(--rdb);padding:2px 6px;border-radius:4px">\u26a0\ufe0f No phone</span>'}
+      </div>
+    </div>
+    <button onclick="rmStaff(${i})" style="padding:4px 8px;border:1px solid #fecaca;border-radius:6px;background:#fff;color:var(--rd);font-size:11px;cursor:pointer">\u2715</button>
+  </div>`).join('');
+}
+
+/* ═══ EXPORT ═══ */
+function exportCSV(){
+  const filtered=orders.filter(o=>mode==='studio'?o.type==='studio':o.type!=='studio');
+  if(!filtered.length){toast('No orders');return;}
+  const cols=mode==='studio'?['id','name','phone','odate','deldate','status','total']:
+    ['id','name','phone','evdate','evtype','venue','reqs','quoted','discount','total','received','balance','status','photosCopied','nasCopied','smugShared','pixShared'];
+  const header=cols.join(',');
+  const rows=filtered.map(o=>cols.map(k=>{
+    let v=o[k];
+    if(k==='reqs')v=(o.reqs||[]).join('; ');
+    if(k==='evdate'){const se=o.subEvents&&o.subEvents[0];v=o.evdate||se?.evdate||'';}
+    if(k==='evtype'){const se=o.subEvents&&o.subEvents[0];v=se?.evtype||'';}
+    if(k==='venue'){const se=o.subEvents&&o.subEvents[0];v=se?.venue||'';}
+    return '"'+(v===undefined||v===null?'':v)+'"';
+  }).join(','));
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([header+'\n'+rows.join('\n')],{type:'text/csv'}));
+  a.download='tebo_'+mode+'_'+Date.now()+'.csv';a.click();toast('Exported!');
+}
+
+function toast(msg){document.getElementById('toastTxt').textContent=msg;const el=document.getElementById('toast');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2500);}
+
+function getIdBanner(){
+  const id=idMode==='manual'?(document.getElementById('manualId')?.value||'---'):genId();
+  const name=document.getElementById('ef-name')?.value||'';
+  return `<div style="background:var(--gd);border:1px solid var(--gm);border-radius:7px;padding:8px 12px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
+    <div><span style="font-family:'DM Mono',monospace;font-size:12px;font-weight:700;color:var(--bk)">${id}</span>${name?` <span style="font-size:12px;color:var(--t2)"> --- ${name}</span>`:''}</div>
+    <span style="font-size:10px;color:var(--t3)">Step ${curStep+1}/${STEPS_EV.length}</span>
+  </div>`;
+}
+
+function buildPixSelectionMsg(o){
+  const se=o.subEvents&&o.subEvents[0]||{};
+  const evName=(se.evtype||'Event')+' - '+(o.name||'Client');
+  const pixCode=o.pixLink?o.pixLink.split('/').pop():'XXXXXXXX';
+  return `Dear ${o.name||'Client'},\nYour event *${evName}* is ready for photo selection.\nYour event code is "${o.id}" and you can select photos from\n\nAndroid/iOS App\nhttp://pixstudiopro.com/app/${pixCode}\n\nRegards,\nTebo Studios\n+91 7200005099`;
+}
+
+function getTeamReminders(){
+  const now=new Date();const alerts=[];
+  orders.forEach(o=>{
+    if(o.type==='studio'||o.status==='Complete')return;
+    const se=o.subEvents&&o.subEvents[0]||{};
+    const evd=o.evdate||se.evdate||'';if(!evd)return;
+    const daysTo=Math.ceil((new Date(evd+'T00:00')-now)/864e5);
+    if(daysTo>0&&daysTo<=15&&daysTo%3===0)alerts.push({o,type:'team',daysTo});
+    if(daysTo===1)alerts.push({o,type:'1day',daysTo});
+    if(daysTo===0)alerts.push({o,type:'today',daysTo:0});
+    if(daysTo<=-15&&!(o.smugShared&&o.pixShared)){
+      const lr=o.lastrem?new Date(o.lastrem):null;
+      if(!lr||Math.floor((now-lr)/864e5)>=7)alerts.push({o,type:'photo',daysTo:Math.abs(daysTo)});
+    }
+  });
+  return alerts;
+}
+
+function getVendorAlerts(){
+  const alerts=[];
+  orders.forEach(o=>{
+    if(o.type==='studio')return;
+    const se=o.subEvents&&o.subEvents[0]||{};
+    const evd=o.evdate||se.evdate||'';if(!evd)return;
+    const days=Math.floor((new Date()-new Date(evd))/864e5);
+    if(days<1)return;
+    (o.teamMembers||[]).forEach(m=>{
+      if(m.vendorAmt&&Number(m.vendorAmt)>0&&m.vendorStatus!=='Paid'&&days>=7)
+        alerts.push({orderId:o.id,name:o.name,member:m.name,role:m.role,amt:m.vendorAmt,days});
+    });
+  });
+  return alerts;
+}
+
+function sendAllTeamWA(){
+  const se0=subEvs[0]||{};
+  const evDate=se0.evdate?new Date(se0.evdate+'T00:00').toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):'TBD';
+  const clientName=document.getElementById('ef-name')?.value||'Client';
+  const clientPh=document.getElementById('ef-phone')?.value||'';
+  const orderId=idMode==='manual'?(document.getElementById('manualId')?.value||genId()):genId();
+  const se0x=subEvs[0]||{};const pkgLabel=(se0x.pkgKey||selPkgKey)?(se0x.pkgKey||selPkgKey)+' Package':'Custom';
+  const reqs=[...document.querySelectorAll('#reqChips input:checked')].map(i=>i.value);
+  let sent=0;
+  teamM.forEach(m=>{
+    if(!m.name)return;
+    const sObj=staff.find(s=>s.name===m.name);
+    const phone=sObj?.phone||'';
+    if(!phone){toast(m.name+': no phone');return;}
+    const msg=encodeURIComponent(`Hi ${m.name},\n\nAssigned for:\n\n` +
+      `Order: *${orderId}*\n` +
+      `Event: *${se0.evtype||'Event'}*\n` +
+      `Package: ${pkgLabel}\n` +
+      `Date: ${evDate}\n` +
+      `Time: ${se0.evstart||'TBD'} to ${se0.evend||'TBD'}\n` +
+      `Venue: ${se0.venue||'TBD'}\n` +
+      `Role: *${m.role||'TBD'}*\n` +
+      `Req: ${reqs.join(', ')||'As discussed'}\n\n` +
+      `Client: ${clientName}\n` +
+      `Contact: +91 ${clientPh}\n\n` +
+      `Please confirm.\n*Tebo Studio's*`);
+    window.open('https://wa.me/91'+phone+'?text='+msg,'_blank');
+    sent++;
+  });
+  if(sent)toast('WhatsApp opened for '+sent);
+}
+
+function sendPixReminder(){
+  const ph=document.getElementById('ef-phone')?.value||'';
+  const cc=document.getElementById('ef-cc')?.value||'+91';
+  const nm=document.getElementById('ef-name')?.value||'Client';
+  const se0=subEvs[0]||{};
+  const oid=idMode==='manual'?(document.getElementById('manualId')?.value||genId()):genId();
+  const pixLink=document.getElementById('ef-pixlink')?.value||'';
+  const pixCode=pixLink?pixLink.split('/').pop():'XXXXXXXX';
+  const msg=`Dear ${nm},\nYour event *${se0.evtype||'Event'} - ${nm}* is ready for photo selection.\nYour event code is "${oid}" and you can select photos from\n\nAndroid/iOS App\nhttp://pixstudiopro.com/app/${pixCode}\n\nRegards,\nTebo Studios\n+91 7200005099`;
+  window.open('https://wa.me/'+(cc+ph).replace(/\D/g,'')+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+function getFormPreviewData(){
+  saveClientState();
+  const nm=formState.name||"Sir/Ma'am";
+  const ph=formState.phone||'';
+  const cc=formState.cc||'+91';
+  const se0=subEvs[0]||{};
+  const evdate=se0.evdate?new Date(se0.evdate+'T00:00').toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):'your event';
+  const venue=se0.venue||'the venue';
+  const evtype=se0.evtype||'Event';
+  const pk=se0.pkgKey||selPkgKey||'';
+  const cat=selPkgCat||'';
+  const pkgData=pk&&cat?PACKAGES[cat]?.packages?.[pk]:null;
+  // Reqs: try DOM first, fall back to package
+  const reqEls=document.querySelectorAll('#reqChips input:checked');
+  const reqs=reqEls&&reqEls.length?[...reqEls].map(i=>i.value):(pkgData?.reqs||[]);
+  // Dels: try DOM first, fall back to package
+  const delEls=document.querySelectorAll('#delList .di');
+  const dels=delEls&&delEls.length?[...delEls].map(r=>r.querySelector('input[type=text]')?.value?.trim()).filter(Boolean):(pkgData?.dels||[]);
+  const quoted=document.getElementById('ef-quoted')?.value||'';
+  const disc=document.getElementById('ef-disc')?.value||'';
+  const final=document.getElementById('ef-final')?.value||'';
+  const a1amt=document.getElementById('a1-amt')?.value||'';
+  const bal=document.getElementById('ef-bal')?.value||'';
+  const pkgLabel=pk?pk+' Package':'Custom';
+  const allEvts=subEvs.length>1?subEvs.map((s,idx)=>'Event '+(idx+1)+': '+(s.evtype||'')+' - '+(s.evdate||'TBD')+' at '+(s.venue||'TBD')).join('\n'):'';
+  const oid=idMode==='manual'?(formState.manualId||genId()):genId();
+  return {nm,ph,cc,evdate,venue,evtype,reqs,dels,quoted,disc,final,a1amt,bal,pkgLabel,pkgData,allEvts,oid};
+}
+
+function buildQuotPreviewMsg(){
+  const d=getFormPreviewData();
+  const q=d.quoted?'\u20b9'+Number(d.quoted).toLocaleString('en-IN'):'';
+  const dc=d.disc&&Number(d.disc)>0?'\u20b9'+Number(d.disc).toLocaleString('en-IN'):'';
+  const f=d.final?'\u20b9'+Number(d.final).toLocaleString('en-IN'):'';
+  const a1=d.a1amt?'\u20b9'+Number(d.a1amt).toLocaleString('en-IN'):'';
+  return `Hi ${d.nm},\n\nThank you for confirming!\n\nOrder: *${d.oid}*\nPackage: *${d.pkgLabel}*\n\nEvent:\n${d.allEvts||d.evtype+' - '+d.evdate+'\nVenue: '+d.venue}\n\nRequirements:\n${d.reqs.map(r=>'- '+r).join('\n')||'As discussed'}\n\nDeliverables:\n${d.dels.map(r=>'- '+r).join('\n')||'As per package'}\n\nAmount:\n${q?'Quoted: '+q+'\n':''}${dc?'Discount: '+dc+'\n':''}Final: *${f||'TBD'}*\n${a1?'Advance: '+a1+'\n':''}\nPayment Schedule:\n1. Advance at booking\n2. Before event (2-3 days)\n3. Balance before album proof\n\n+91 72000 05099\nwww.tebostudios.com\n*Tebo Studio's*`;
+}
+function showQuotPreview(){document.getElementById('quotPreview').style.display='block';document.getElementById('quotMsgPreview').textContent=buildQuotPreviewMsg();}
+function sendQuotPreview(){
+  saveClientState();
+  const ph=formState.phone.replace(/\D/g,'');
+  const cc=formState.cc.replace(/\D/g,'');
+  if(!ph){toast('⚠️ Enter phone number in Client tab first');return;}
+  window.open('https://wa.me/'+cc+ph+'?text='+encodeURIComponent(buildQuotPreviewMsg()),'_blank');
+}
+
+function buildPayPreviewMsg(){
+  const d=getFormPreviewData();
+  const f=d.final?'\u20b9'+Number(d.final).toLocaleString('en-IN'):'';
+  const a1=d.a1amt?'\u20b9'+Number(d.a1amt).toLocaleString('en-IN'):'';
+  const a2=document.getElementById('a2-amt')?.value||'';
+  const a2v=a2?'\u20b9'+Number(a2).toLocaleString('en-IN'):'';
+  const bal=d.bal?'\u20b9'+Number(d.bal).toLocaleString('en-IN'):'';
+  const smugLink=document.getElementById('ef-smuglink')?.value||'[will be shared]';
+  const pixLink=document.getElementById('ef-pixlink')?.value||'[will be shared]';
+  return `Hi ${d.nm},\n\nPayment Details - Tebo Studio's\n\nOrder: *${d.oid}*\nFinal: *${f||'TBD'}*\n${a1?'Advance 1: '+a1+'\n':''}${a2v?'Advance 2: '+a2v+'\n':''}Balance: *${bal||'TBD'}*\n\nGallery Links:\nSmugMug: ${smugLink}\nPixStudio: ${pixLink}\n\n+91 72000 05099\n*Tebo Studio's*`;
+}
+function showPayPreview(){document.getElementById('payPreview').style.display='block';document.getElementById('payMsgPreview').textContent=buildPayPreviewMsg();}
+function sendPayPreview(){
+  saveClientState();
+  const ph=formState.phone.replace(/\D/g,'');
+  const cc=formState.cc.replace(/\D/g,'');
+  if(!ph){toast('⚠️ Enter phone number in Client tab first');return;}
+  window.open('https://wa.me/'+cc+ph+'?text='+encodeURIComponent(buildPayPreviewMsg()),'_blank');
+}
+
+function buildDelNotePreviewMsg(){
+  const nm=document.getElementById('ef-name')?.value||"Sir/Ma'am";
+  const notes=document.getElementById('ef-delnotes')?.value||'Your deliverables';
+  const delDt=document.getElementById('ef-deldt')?.value||'';
+  const delTm=document.getElementById('ef-deltm')?.value||'';
+  const dtStr=delDt?new Date(delDt+'T'+(delTm||'00:00')).toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'})+(delTm?' at '+delTm:''):'';
+  const reviewLink=document.getElementById('ef-reviewlink')?.value||'';
+  const oid=idMode==='manual'?(document.getElementById('manualId')?.value||genId()):genId();
+  return `Hi ${nm},\n\nDelivery Update - Tebo Studio's\n\nOrder: *${oid}*\n${dtStr?'Delivered: '+dtStr+'\n':''}\nDelivered:\n${notes}\n\nThank you for choosing Tebo Studio's!\n${reviewLink?'\nPlease leave a review:\n'+reviewLink+'\n':''}\n+91 72000 05099\nwww.tebostudios.com\n*Tebo Studio's*`;
+}
+function showDelNotePreview(){document.getElementById('delNotePreview').style.display='block';document.getElementById('delNoteMsgPreview').textContent=buildDelNotePreviewMsg();}
+function sendDelNotePreview(){
+  saveClientState();
+  const ph=formState.phone.replace(/\D/g,'');
+  const cc=formState.cc.replace(/\D/g,'');
+  if(!ph){toast('⚠️ Enter phone number in Client tab first');return;}
+  window.open('https://wa.me/'+cc+ph+'?text='+encodeURIComponent(buildDelNotePreviewMsg()),'_blank');
+}
+
+function doGlobalSearch(){
+  const q=(document.getElementById('globalSearch')?.value||'').trim().toLowerCase();
+  if(!q){toast('Enter Client ID or name');return;}
+  const found=orders.filter(o=>(o.id||'').toLowerCase().includes(q)||(o.name||'').toLowerCase().includes(q));
+  if(!found.length){toast('No results');return;}
+  const main=document.getElementById('mainContent');
+  document.getElementById('mainTabs').innerHTML='<button class="tab on">Results ('+found.length+')</button><button class="tab" onclick="renderApp()">Back</button>';
+  main.innerHTML=`<div style="font-family:\'Cormorant Garamond\',serif;font-size:17px;margin-bottom:12px">Results for "${q}"</div><div class="ol">${found.map(o=>o.type==='studio'?studioCard(o):eventCard(o)).join('')}</div>`;
+}
+
+let studioItemsList=[];
+function addStudioItem(item,price){studioItemsList.push({item,price,qty:1});renderStudioItems();calcStudioTotal();}
+function removeStudioItem(idx){studioItemsList.splice(idx,1);renderStudioItems();calcStudioTotal();}
+function updateStudioQty(idx,qty){studioItemsList[idx].qty=parseInt(qty)||1;calcStudioTotal();}
+function renderStudioItems(){
+  const el=document.getElementById('studioItems');if(!el)return;
+  if(!studioItemsList.length){el.innerHTML='<div style="font-size:11px;color:var(--t3);padding:6px">Tap prices above to add items</div>';return;}
+  el.innerHTML=studioItemsList.map((item,i)=>`<div style="display:flex;align-items:center;gap:6px;padding:5px 8px;border:1px solid var(--br);border-radius:6px;margin-bottom:4px;background:var(--sf)">
+    <span style="flex:1;font-size:12px">${item.item}</span>
+    <span style="font-size:11px;color:var(--t3)">x</span>
+    <input type="number" value="${item.qty}" min="1" onchange="updateStudioQty(${i},this.value)" style="width:40px;border:1px solid var(--bs);border-radius:4px;padding:3px;font-size:11px;text-align:center">
+    <span style="font-size:11px;font-weight:600;color:var(--g)">Rs${item.price*item.qty}</span>
+    <button onclick="removeStudioItem(${i})" style="width:18px;height:18px;border-radius:50%;border:1px solid #fecaca;background:#fff;color:var(--rd);font-size:10px;cursor:pointer">x</button>
+  </div>`).join('');
+}
+function calcStudioTotal(){const t=studioItemsList.reduce((s,i)=>s+i.price*i.qty,0);const el=document.getElementById('sf-amt');if(el)el.value=t>0?String(t):'';}
+
+function openMaps(idx){const v=subEvs[idx]?.venue||'';if(!v){toast('Enter venue first');return;}window.open('https://www.google.com/maps/search/'+encodeURIComponent(v+' Chennai'),'_blank');}
+
+function buildStaffAssignMsg(){
+  const se0=subEvs[0]||{};
+  const evDateFmt=se0.evdate?new Date(se0.evdate+'T00:00').toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):'TBD';
+  const clientName=document.getElementById('ef-name')?.value||'Client';
+  const clientPh=document.getElementById('ef-phone')?.value||'';
+  const orderId=idMode==='manual'?(document.getElementById('manualId')?.value||genId()):genId();
+  const se0x=subEvs[0]||{};const pkgLabel=(se0x.pkgKey||selPkgKey)?(se0x.pkgKey||selPkgKey)+' Package':'Custom';
+  const reqs=[...document.querySelectorAll('#reqChips input:checked')].map(i=>i.value);
+  return `Event Assignment - Tebo Studio's\n\nOrder: *${orderId}*\nEvent: *${se0.evtype||'Event'}*\nPackage: ${pkgLabel}\nDate: ${evDateFmt}\nTime: ${se0.evstart||'TBD'} to ${se0.evend||'TBD'}\nVenue: ${se0.venue||'TBD'}\n\nRequirements: ${reqs.join(', ')||'As discussed'}\n\nClient: ${clientName}\nContact: +91 ${clientPh}\n\nPlease confirm availability.\n*Tebo Studio's* | +91 72000 05099`;
+}
+
+function previewStaffMsg(){
+  document.getElementById('quotStaffPreview').style.display='block';
+  document.getElementById('quotStaffPreview').textContent=buildStaffAssignMsg();
+}
+
+function sendStaffFromQuot(){
+  const msg=buildStaffAssignMsg();
+  const assigned=teamM.filter(m=>m.name);
+  if(assigned.length){
+    let sent=0;
+    assigned.forEach(m=>{
+      const sObj=staff.find(s=>s.name===m.name);
+      const phone=sObj?.phone||'';
+      if(!phone){toast(m.name+': no phone');return;}
+      window.open('https://wa.me/91'+phone+'?text='+encodeURIComponent('Hi '+m.name+',\n\n'+msg),'_blank');
+      sent++;
+    });
+    if(sent)toast('WhatsApp opened for '+sent+' member(s)');
+    else toast('Add phone numbers in Staff tab');
+  } else {
+    const members=staff.filter(s=>s.phone);
+    if(!members.length){toast('No staff with phones. Add in Staff tab.');return;}
+    const list=members.map((s,i)=>(i+1)+'. '+s.name+' ('+s.phone+')').join('\n');
+    const input=prompt('No team assigned yet.\nSend to which staff?\n\n'+list+'\n\nType name:');
+    if(!input)return;
+    const found=members.find(s=>s.name.toLowerCase().includes(input.toLowerCase()));
+    if(!found){toast('Not found');return;}
+    window.open('https://wa.me/91'+found.phone+'?text='+encodeURIComponent('Hi '+found.name+',\n\n'+msg),'_blank');
+  }
+}
+
+// Persistent client form state across tab switches
+let formState={name:'',phone:'',cc:'+91',email:'',bdate:'',btime:'',manualId:'',contacts:['','']};
+
+function saveClientState(){
+  const v=id=>document.getElementById(id)?.value;
+  if(v('ef-name')!==undefined) formState.name=v('ef-name')||formState.name;
+  if(v('ef-phone')!==undefined) formState.phone=v('ef-phone')||formState.phone;
+  if(v('ef-cc')!==undefined) formState.cc=v('ef-cc')||formState.cc;
+  if(v('ef-email')!==undefined) formState.email=v('ef-email')||formState.email;
+  if(v('ef-bdate')!==undefined) formState.bdate=v('ef-bdate')||formState.bdate;
+  if(v('ef-btime')!==undefined) formState.btime=v('ef-btime')||formState.btime;
+  if(v('manualId')!==undefined) formState.manualId=v('manualId')||formState.manualId;
+  if(v('ef-c2')!==undefined) formState.contacts[0]=v('ef-c2')||formState.contacts[0];
+  if(v('ef-c3')!==undefined) formState.contacts[1]=v('ef-c3')||formState.contacts[1];
+}
+
+init();
+
+
+</script>
+</body>
+</html>
