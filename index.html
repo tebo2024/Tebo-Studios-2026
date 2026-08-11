@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
 <base target="_top">
+<meta name="theme-color" content="#0e0d0b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tebo Studio">
+<meta name="application-name" content="Tebo Studio">
+<link rel="manifest" href="manifest.json">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
 <title>Tebo Studio's</title>
@@ -2246,6 +2252,30 @@ function manualBackupNow(){
     })
     .withFailureHandler(function(){toast('❌ Backup failed');})
     .manualBackup();
+}
+
+// PWA Install prompt
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // Show install button in header
+  const btn = document.getElementById('installBtn');
+  if(btn) btn.style.display = 'inline-flex';
+});
+window.addEventListener('appinstalled', () => {
+  deferredPrompt = null;
+  const btn = document.getElementById('installBtn');
+  if(btn) btn.style.display = 'none';
+  toast('✅ App installed! Open from your desktop anytime.');
+});
+function installApp(){
+  if(!deferredPrompt){ toast('Already installed or use browser menu to install'); return; }
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(r => {
+    if(r.outcome==='accepted') toast('Installing Tebo Studio...');
+    deferredPrompt = null;
+  });
 }
 
 init();
